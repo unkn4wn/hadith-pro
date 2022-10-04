@@ -42,7 +42,9 @@ Hadith Pro provides you Ahadith in your language without showing you any annoyin
 <p align="center">
  <img  src="Screenshots/main_l.png" height="600px" >
  <img  src="Screenshots/main_d.png" height="600px" >
+  <br />
  <img  src="Screenshots/hadith_l.png" height="600px" >
+<img  src="Screenshots/language_l.png" height="600px" >
 
 
 
@@ -108,6 +110,6 @@ https://github.com/fawazahmed0/hadith-api/blob/1/CONTRIBUTING.md
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-* [https://github.com/fawazahmed0/hadith] (for providing hadith translations)
+* [https://github.com/fawazahmed0/hadith-api] (for providing hadith translations)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
