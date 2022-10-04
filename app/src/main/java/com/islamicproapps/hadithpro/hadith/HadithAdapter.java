@@ -89,7 +89,7 @@ public class HadithAdapter extends RecyclerView.Adapter<HadithAdapter.MyViewHold
 
         HadithGradesAdapter adapter = new HadithGradesAdapter(list);
         holder.nestedRecyclerView.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
-        holder.nestedRecyclerView.setHasFixedSize(true);
+       // holder.nestedRecyclerView.setHasFixedSize(true);
         holder.nestedRecyclerView.setAdapter(adapter);
         holder.linearLayout.setOnClickListener(v -> {
             model.setExpandable(!model.isExpandable());
