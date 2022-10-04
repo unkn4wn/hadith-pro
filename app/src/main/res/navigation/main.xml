@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    app:startDestination="@id/book">
+
+    <fragment
+        android:id="@+id/book"
+        android:name="com.islamicproapps.hadithpro.book.BookFragment"
+        android:label="Book"
+        tools:layout="@layout/fragment_book"/>
+    <fragment
+        android:id="@+id/bookmark"
+        android:name="com.islamicproapps.hadithpro.bookmark.BookmarkFragment"
+        android:label="BookmarkFragment" />
+
+
+</navigation>

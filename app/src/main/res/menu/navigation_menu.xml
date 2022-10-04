@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Menu">
+        <menu>
+
+
+            <item
+                android:id="@+id/book"
+                android:icon="@drawable/navi_search"
+                android:title="Books" />
+            <item
+                android:id="@+id/bookmark"
+                android:icon="@drawable/navi_bookmark"
+                android:title="Bookmark" />
+        </menu>
+    </item>
+
+    <item android:title="Others">
+        <menu>
+            <item
+                android:id="@+id/rate"
+                android:icon="@drawable/navi_rate2"
+                android:title="Rate our app (not available)" />
+            <item
+                android:id="@+id/reference"
+                android:icon="@drawable/navi_reference3"
+                android:title="Reference" />
+            <item
+                android:id="@+id/moreapps"
+                android:icon="@drawable/navi_moreapps"
+                android:title="More apps (not available)" />
+            <item
+                android:id="@+id/contribute"
+                android:icon="@drawable/navi_info2"
+                android:title="How to contribute" />
+        </menu>
+    </item>
+</menu>

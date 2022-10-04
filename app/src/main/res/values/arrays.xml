@@ -1,0 +1,25 @@
+<resources>
+
+    <!-- Hadith language Preference -->
+    <string-array name="language_entries">
+        <item>Arabic</item>
+        <item>Bengali</item>
+        <item>English</item>
+        <item>French</item>
+        <item>Indonesian</item>
+        <item>Tamil</item>
+        <item>Turkish</item>
+        <item>Urdu</item>
+    </string-array>
+
+    <string-array name="language_values">
+        <item>ara</item>
+        <item>ben</item>
+        <item>eng</item>
+        <item>fra</item>
+        <item>ind</item>
+        <item>tam</item>
+        <item>tur</item>
+        <item>urd</item>
+    </string-array>
+</resources>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_marginBottom="10dp"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/gradesScholar"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:gravity="center"
+        android:text="Sheikh xy" />
+
+<com.google.android.material.card.MaterialCardView
+    android:id="@+id/gradesAuthenticitiyCardView"
+    android:layout_width="match_parent"
+    android:layout_height="30dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="?attr/colorPrimary"
+    app:strokeWidth="0dp">
+
+    <TextView
+        android:id="@+id/gradesAuthenticitiy"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Sahih"
+        android:textColor="@color/white"/>
+
+</com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

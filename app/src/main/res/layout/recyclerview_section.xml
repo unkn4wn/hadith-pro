@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardViewSections"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        app:strokeWidth="0dp"
+        app:cardBackgroundColor="?attr/backgroundColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    <RelativeLayout
+        android:id="@+id/constraintLayout"
+        android:background="?android:selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardViewIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            app:strokeWidth="0dp">
+
+            <TextView
+                android:id="@+id/sectionNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="B"
+                android:textSize="20sp" />
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignBottom="@+id/materialCardViewIcon"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:gravity="top"
+            android:layout_toEndOf="@+id/materialCardViewIcon"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/sectionName"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Section name"
+                android:gravity="center_vertical"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/materialCardViewIcon"
+                app:layout_constraintTop_toTopOf="@+id/materialCardViewIcon" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:dividerColor="?attr/colorSurface"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardViewSections" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

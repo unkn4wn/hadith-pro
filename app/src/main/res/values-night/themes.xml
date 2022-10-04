@@ -1,0 +1,35 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.HadithPro" parent="Theme.Material3.Dark.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">#234328</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimary</item>
+        <!-- Customize your theme here. -->
+
+        <item name="colorAccent">?attr/colorPrimary</item>
+
+        <item name="backgroundColor">#000000</item>
+
+        <item name="colorSurface">#131513</item>
+        <item name="colorOnSurface">#CCD1E6</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" >?attr/colorPrimary</item>
+
+        <item name="android:windowLightStatusBar">false</item>
+
+        <!-- added in API 27 -->
+        <item name="android:windowLightNavigationBar">false</item>
+
+        <!-- required to contrast the dark buttons -->
+        <item name="android:navigationBarColor">?attr/backgroundColor</item>
+
+        <item name="colorError">#a30000</item>
+    </style>
+</resources>

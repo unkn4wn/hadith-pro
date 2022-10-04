@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardViewBooks"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        app:strokeWidth="0dp"
+        app:cardBackgroundColor="?attr/backgroundColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+    <RelativeLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?android:attr/selectableItemBackground"
+       >
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardViewIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginHorizontal="10dp"
+            app:cardBackgroundColor="@color/bukhariBook"
+            app:strokeWidth="0dp">
+
+            <TextView
+                android:id="@+id/bookIconText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="B"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignBottom="@+id/materialCardViewIcon"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:gravity="center_vertical"
+            android:layout_toEndOf="@+id/materialCardViewIcon"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/bookName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Book name"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/materialCardViewIcon"
+                app:layout_constraintTop_toTopOf="@+id/materialCardViewIcon" />
+
+            <TextView
+                android:id="@+id/bookScholar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="By: Imam Bukhari"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/materialCardViewIcon"
+                app:layout_constraintStart_toStartOf="@+id/bookName" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:dividerColor="?attr/colorSurface"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardViewBooks" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
