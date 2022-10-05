@@ -42,7 +42,6 @@ public class HadithFragment extends Fragment implements HadithInterface {
     }
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,9 +70,12 @@ public class HadithFragment extends Fragment implements HadithInterface {
 
         hadithModels = new ArrayList<>();
         RecyclerView recyclerView = mView.findViewById(R.id.hadithRecyclerView);
+        long startTime = System.currentTimeMillis();
         setupHadithModels();
+        long endTime = System.currentTimeMillis();
+        System.out.println("HADITH" + (endTime - startTime));
 
-        HadithAdapter adapter = new HadithAdapter(requireContext(), hadithModels, this,false);
+        HadithAdapter adapter = new HadithAdapter(requireContext(), hadithModels, this, false);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
@@ -129,15 +131,17 @@ public class HadithFragment extends Fragment implements HadithInterface {
                     String hadithArabicText = specificHadithArabic.getString("text"); //specific arabic hadith text
                     String hadithEnglishText = specificHadithEnglish.getString("text"); //specific translated hadith text
 
-                    //add grades from specific hadith
-                    JSONArray grades = specificHadithEnglish.getJSONArray("grades");
-                    ArrayList<HadithGradesModel> hadithGradesModels = new ArrayList<>();
-                    for (int j = 0; j < grades.length(); j++) {
-                        hadithGradesModels.add(new HadithGradesModel(grades.getJSONObject(j).getString("name"), grades.getJSONObject(j).getString("grade")));
-                    }
                     // only add ahadith which are translated. If there is no translation, dont show the hadith
                     if (!hadithEnglishText.equals("")) {
-                        hadithModels.add(new HadithModel(specificHadithBookReference.getString("hadith"), hadithArabicText, hadithEnglishText, referenceText.toString(), referenceBookText.toString(), hadithGradesModels));
+
+                        //add grades from specific hadith
+                        JSONArray grades = specificHadithEnglish.getJSONArray("grades");
+                        ArrayList<HadithGradesModel> hadithGradesModels = new ArrayList<>();
+                        for (int j = 0; j < grades.length(); j++) {
+                            hadithGradesModels.add(new HadithGradesModel(grades.getJSONObject(j).getString("name"), grades.getJSONObject(j).getString("grade")));
+                        }
+
+                        hadithModels.add(new HadithModel(specificHadithBookReference.getString("hadith"), hadithArabicText, hadithEnglishText, referenceText.toString(), referenceBookText.toString(),language, hadithGradesModels));
                     }
                 }
             }

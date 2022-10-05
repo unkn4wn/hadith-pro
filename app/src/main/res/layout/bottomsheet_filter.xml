@@ -26,7 +26,7 @@
                 android:layout_marginEnd="40dp"
                 android:autoSizeTextType="uniform"
                 android:maxLines="1"
-                android:text="Filter results"
+                android:text="@string/search_filter_title"
                 android:layout_centerVertical="true"
                 android:textSize="25sp"
                 android:textStyle="bold" />
@@ -49,7 +49,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Search only"
+                android:text="@string/search_only_title"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -61,7 +61,7 @@
                 android:id="@+id/buttonText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Hadith Text" />
+                android:text="@string/search_book_text" />
         </LinearLayout>
 
         <LinearLayout
@@ -72,7 +72,7 @@
                 android:id="@+id/buttonNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Hadith Number" />
+                android:text="@string/search_book_number" />
 
         </LinearLayout>
 
@@ -84,7 +84,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Search in"
+                android:text="@string/search_in_title"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -96,7 +96,7 @@
                 android:id="@+id/buttonBukhari"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sahih Bukhari" />
+                android:text="@string/bukhari_book" />
 
         </LinearLayout>
 
@@ -108,7 +108,7 @@
                 android:id="@+id/buttonMuslim"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sahih Muslim" />
+                android:text="@string/muslim_book" />
 
         </LinearLayout>
 
@@ -120,7 +120,7 @@
                 android:id="@+id/buttonNasai"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sunan an-Nasa'i" />
+                android:text="@string/nasai_book" />
 
         </LinearLayout>
 
@@ -132,7 +132,7 @@
                 android:id="@+id/buttonAbudawud"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sunan Abi Dauwd" />
+                android:text="@string/abudawud_book" />
 
         </LinearLayout>
 
@@ -144,7 +144,7 @@
                 android:id="@+id/buttonTirmidhi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Jami' at-Tirmidhi" />
+                android:text="@string/tirmidhi_book" />
 
         </LinearLayout>
 
@@ -156,7 +156,7 @@
                 android:id="@+id/buttonIbnmajah"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sunan Ibn Majah" />
+                android:text="@string/ibnmajah_book" />
 
         </LinearLayout>
 
@@ -168,7 +168,7 @@
                 android:id="@+id/buttonMalik"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Muwatta Malik" />
+                android:text="@string/malik_book" />
 
         </LinearLayout>
 

@@ -28,7 +28,7 @@
                 android:layout_marginEnd="40dp"
                 android:autoSizeTextType="uniform"
                 android:maxLines="1"
-                android:text="Copy options"
+                android:text="@string/bottomsheet_copy_header"
                 android:layout_centerVertical="true"
                 android:textSize="25sp"
                 android:textStyle="bold" />
@@ -54,7 +54,7 @@
                 android:checked="true"
                 android:textSize="19sp"
                 android:layoutDirection="rtl"
-                android:text="Hadith in Arabic" />
+                android:text="@string/bottomsheet_copy_hadith_arabic" />
         </LinearLayout>
 
         <LinearLayout
@@ -68,7 +68,7 @@
                 android:checked="true"
                 android:textSize="19sp"
                 android:layoutDirection="rtl"
-                android:text="Hadith in translated language" />
+                android:text="@string/bottomsheet_copy_hadith_translated" />
         </LinearLayout>
 
 
@@ -84,7 +84,7 @@
                 android:checked="true"
                 android:textSize="19sp"
                 android:layoutDirection="rtl"
-                android:text="Hadith Grades" />
+                android:text="@string/bottomsheet_copy_hadith_grades" />
         </LinearLayout>
 
         <LinearLayout
@@ -99,7 +99,7 @@
                 android:checked="true"
                 android:textSize="19sp"
                 android:layoutDirection="rtl"
-                android:text="Reference" />
+                android:text="@string/bottomsheet_copy_hadith_reference" />
         </LinearLayout>
 
         <LinearLayout
@@ -111,7 +111,7 @@
                 android:id="@+id/copyButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Copy" />
+                android:text="@string/bottomsheet_copy_button" />
         </LinearLayout>
 
 

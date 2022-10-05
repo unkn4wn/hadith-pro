@@ -2,6 +2,73 @@
     <string name="app_name">Hadith Pro</string>
     <string name="title_activity_settings">SettingsActivity</string>
 
+    
+    <!-- Book Fragment -->
+    <!-- Title -->
+    <string name="title_book">Books</string>
+    <!-- Books -->
+    <string name="bukhari_book">Sahih Bukhari</string>
+    <string name="muslim_book">Sahih Muslim</string>
+    <string name="nasai_book">Sunan an-Nasa\'i</string>
+    <string name="abudawud_book">Sunan Abi Dawud</string>
+    <string name="tirmidhi_book">Jami` at-Tirmidhi</string>
+    <string name="ibnmajah_book">Sunan Ibn Majah</string>
+    <string name="malik_book">Muwatta Malik</string>
+
+    <!-- Book Author -->
+    <string name="bukhari_author">Imam al-Bukhari</string>
+    <string name="muslim_author">Imam Muslim</string>
+    <string name="nasai_author">Imam an-Nasa\'i</string>
+    <string name="abudawud_author">Imam Abu Dawud</string>
+    <string name="tirmidhi_author">Imam at-Tirmidhi</string>
+    <string name="ibnmajah_author">Imam Ibn Majah</string>
+    <string name="malik_author">Imam Malik</string>
+
+    
+    <!-- Section Fragment -->
+    <!-- Search -->
+    <string name="search_hint">Search chapter</string>
+
+    <!-- Hadith Fragment -->
+    <!-- Reference -->
+    <string name="reference">Reference</string>
+    <string name="reference_book">In-book reference</string>
+
+    <!-- Copy -->
+    <!-- Bottomsheet -->
+    <string name="bottomsheet_copy_header">Copy options</string>
+    <string name="bottomsheet_copy_hadith_arabic">Hadith in Arabic</string>
+    <string name="bottomsheet_copy_hadith_translated">Hadith in translated language</string>
+    <string name="bottomsheet_copy_hadith_grades">Hadith Grades</string>
+    <string name="bottomsheet_copy_hadith_reference">Reference</string>
+    <string name="bottomsheet_copy_button">Copy</string>
+
+    <!-- Copy message -->
+    <string name="message_copy_success">Copied successfully</string>
+    <string name="message_copy_error">Nothing copied</string>
+
+
+    <!-- Bookmark -->
+    <!-- Title -->
+    <string name="title_bookmark">Bookmark</string>
+    <!-- Bookmark message -->
+    <string name="message_bookmark_add">Added Successfully!</string>
+    <string name="message_bookmark_remove">Removed Successfully!</string>
+    <string name="message_bookmark_add_error">Failed to Add</string>
+    <string name="message_bookmark_remove_error">Failed to Remove</string>
+
+
+    <!-- Search -->
+    <!-- Custom Action Bar Search -->
+    <string name="search_cancel_button">Cancel</string>
+    <string name="search_filter_title">Filter results</string>
+
+    <!-- Bottomsheet Filter -->
+    <string name="search_only_title">Search only</string>
+    <string name="search_in_title">Search in</string>
+    <string name="search_book_text">Hadith Text</string>
+    <string name="search_book_number">Hadith Number</string>
+
     <!-- Preference Titles -->
     <string name="language_header">Language</string>
     <string name="sync_header">Sync</string>

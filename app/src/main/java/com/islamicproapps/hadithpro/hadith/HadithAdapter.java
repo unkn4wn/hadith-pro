@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
@@ -21,16 +22,19 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.widget.TextViewCompat;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.islamicproapps.hadithpro.R;
-import com.islamicproapps.hadithpro.databinding.RecylerviewHadithGradesBinding;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.divider.MaterialDivider;
 import com.google.android.material.snackbar.Snackbar;
+import com.islamicproapps.hadithpro.helper.MyDatabaseHelper;
+import com.islamicproapps.hadithpro.helper.SharedPreferencesHelper;
+import com.islamicproapps.hadithpro.settings.SettingsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,11 +93,10 @@ public class HadithAdapter extends RecyclerView.Adapter<HadithAdapter.MyViewHold
 
         HadithGradesAdapter adapter = new HadithGradesAdapter(list);
         holder.nestedRecyclerView.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
-       // holder.nestedRecyclerView.setHasFixedSize(true);
+        // holder.nestedRecyclerView.setHasFixedSize(true);
         holder.nestedRecyclerView.setAdapter(adapter);
         holder.linearLayout.setOnClickListener(v -> {
             model.setExpandable(!model.isExpandable());
-            Log.d("IEEXPANDABLE?",String.valueOf(model.isExpandable()));
             list = model.getNestedList();
             notifyItemChanged(holder.getBindingAdapterPosition());
         });
@@ -102,17 +105,47 @@ public class HadithAdapter extends RecyclerView.Adapter<HadithAdapter.MyViewHold
         if (model.getNestedList().size() == 0) {
             holder.linearLayout.setVisibility(View.GONE);
             holder.gradeTitleDivider.setVisibility(View.GONE);
-            Log.d("IEEXPANDABLE?","IST 0");
         } else {
             holder.linearLayout.setVisibility(View.VISIBLE);
             holder.gradeTitleDivider.setVisibility(View.VISIBLE);
-            Log.d("IEEXPANDABLE?","IST NICHT 0");
         }
 
         holder.copyCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showDialogCopy(holder, view);
+            }
+        });
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String language = sharedPreferences.getString("language", "eng");
+
+        String currentReferenceText = holder.referenceText.getText().toString();
+        if (SharedPreferencesHelper.getValue(context, model.getLanguage()+currentReferenceText, false)) {
+            holder.bookmarkIcon.setImageResource(R.drawable.symbol_bookmark_on);
+        } else {
+            holder.bookmarkIcon.setImageResource(R.drawable.symbol_bookmark_off);
+        }
+
+        holder.bookmarkCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyDatabaseHelper myDatabaseHelper = new MyDatabaseHelper(context,view);
+                if (SharedPreferencesHelper.getValue(context, model.getLanguage()+currentReferenceText, false)) {
+                    holder.bookmarkIcon.setImageResource(R.drawable.symbol_bookmark_off);
+                    SharedPreferencesHelper.storeValue(context, model.getLanguage()+currentReferenceText, false);
+                    myDatabaseHelper.deleteOneRowReference("hadiths", currentReferenceText, model.getLanguage());
+                    myDatabaseHelper.deleteOneRowReference("hadithsgrades", currentReferenceText,model.getLanguage());
+                } else {
+                    holder.bookmarkIcon.setImageResource(R.drawable.symbol_bookmark_on);
+                    SharedPreferencesHelper.storeValue(context, model.getLanguage()+currentReferenceText, true);
+
+                    myDatabaseHelper.addHadith(holder.hadithArabicName.getText().toString(), holder.hadithEnglishName.getText().toString(), currentReferenceText, holder.referenceBookText.getText().toString(),model.getLanguage());
+
+                    for (int i = 0; i < model.getNestedList().size(); i++) {
+                        myDatabaseHelper.addHadithGrades(currentReferenceText, model.getNestedList().get(i).hadithGradesScholar, model.getNestedList().get(i).hadithGradesAuthenticity,model.getLanguage());
+                    }
+                }
             }
         });
     }
@@ -134,6 +167,8 @@ public class HadithAdapter extends RecyclerView.Adapter<HadithAdapter.MyViewHold
         private MaterialDivider gradeTitleDivider;
 
         private MaterialCardView copyCardView;
+        private MaterialCardView bookmarkCardView;
+        private ImageView bookmarkIcon;
 
         public MyViewHolder(@NonNull View itemView, HadithInterface hadithInterface) {
             super(itemView);
@@ -152,7 +187,8 @@ public class HadithAdapter extends RecyclerView.Adapter<HadithAdapter.MyViewHold
             nestedRecyclerView = itemView.findViewById(R.id.child_rv);
 
             copyCardView = itemView.findViewById(R.id.copyCardView);
-
+            bookmarkCardView = itemView.findViewById(R.id.bookmarkCardView);
+            bookmarkIcon = itemView.findViewById(R.id.bookmarkIcon);
 
             itemView.setOnClickListener(view -> {
                 if (hadithInterface != null) {
@@ -199,16 +235,16 @@ public class HadithAdapter extends RecyclerView.Adapter<HadithAdapter.MyViewHold
             }
             stringBuilder.append(copyReference.isChecked() ? "\n" + "Reference: " + holder.referenceText.getText() : "")
                     .append(copyReference.isChecked() ? "\n" + "In-book reference: " + holder.referenceBookText.getText() : "");
-
-            Log.d("checkedArabic", stringBuilder.toString());
+            stringBuilder.append("\n");
+            stringBuilder.append("Copied from Hadith Pro");
 
             if (!stringBuilder.toString().isEmpty()) {
                 ClipboardManager clipboard = (ClipboardManager) mView.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("EditText", stringBuilder);
                 clipboard.setPrimaryClip(clip);
-                Snackbar.make(mView,"Copied successfully", Toast.LENGTH_SHORT).show();
+                Snackbar.make(mView, context.getResources().getString(R.string.message_copy_success), Toast.LENGTH_SHORT).show();
             } else {
-                Snackbar.make(mView,"Nothing copied", Toast.LENGTH_SHORT).show();
+                Snackbar.make(mView, context.getResources().getString(R.string.message_copy_error), Toast.LENGTH_SHORT).show();
             }
 
             dialog.dismiss();

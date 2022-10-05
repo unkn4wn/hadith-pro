@@ -58,13 +58,13 @@ public class BookFragment extends Fragment implements BookInterface {
 
     private void setupHadithModels() {
         ArrayList<String> bookName = new ArrayList<>();
-        bookName.add("Sahih Bukhari");
-        bookName.add("Sahih Muslim");
-        bookName.add("Sunan an-Nasa'i");
-        bookName.add("Sunan Abi Dawud");
-        bookName.add("Jami` at-Tirmidhi");
-        bookName.add("Sunan Ibn Majah");
-        bookName.add("Muwatta Malik");
+        bookName.add(getResources().getString(R.string.bukhari_book));
+        bookName.add(getResources().getString(R.string.muslim_book));
+        bookName.add(getResources().getString(R.string.nasai_book));
+        bookName.add(getResources().getString(R.string.abudawud_book));
+        bookName.add(getResources().getString(R.string.tirmidhi_book));
+        bookName.add(getResources().getString(R.string.ibnmajah_book));
+        bookName.add(getResources().getString(R.string.malik_book));
         System.out.println(Locale.getDefault().getISO3Language());
 
 
@@ -78,13 +78,13 @@ public class BookFragment extends Fragment implements BookInterface {
         displayName.add("malik.min");
 
         ArrayList<String> bookScholar = new ArrayList<>();
-        bookScholar.add("Imam Bukhari");
-        bookScholar.add("Imam Muslim");
-        bookScholar.add("Imam Nasai");
-        bookScholar.add("Imam Abu Dawud");
-        bookScholar.add("Imam at-Tirmidhi");
-        bookScholar.add("Imam ibn Majah");
-        bookScholar.add("Imam Malik");
+        bookScholar.add(getResources().getString(R.string.bukhari_author));
+        bookScholar.add(getResources().getString(R.string.muslim_author));
+        bookScholar.add(getResources().getString(R.string.nasai_author));
+        bookScholar.add(getResources().getString(R.string.abudawud_author));
+        bookScholar.add(getResources().getString(R.string.tirmidhi_author));
+        bookScholar.add(getResources().getString(R.string.ibnmajah_author));
+        bookScholar.add(getResources().getString(R.string.malik_author));
 
         ArrayList<Integer> bookIconColor = new ArrayList<>();
         bookIconColor.add(getResources().getColor(R.color.bukhariBook));
@@ -131,7 +131,7 @@ public class BookFragment extends Fragment implements BookInterface {
         });
 
         TextView actionBarTitle = requireActivity().findViewById(R.id.actionbar_title);
-            actionBarTitle.setText("Hadith Pro");
+            actionBarTitle.setText(getResources().getString(R.string.title_book));
 
     }
 }

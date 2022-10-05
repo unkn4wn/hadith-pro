@@ -157,7 +157,7 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
                         }
                         // only add ahadith which are translated. If there is no translation, dont show the hadith
                         if (!hadithEnglishText.equals("")) {
-                            hadithModels.add(new HadithModel(specificHadithBookReference.getString("hadith"), hadithArabicText, hadithEnglishText, referenceText.toString(), referenceBookText.toString(), hadithGradesModels));
+                            hadithModels.add(new HadithModel(specificHadithBookReference.getString("hadith"), hadithArabicText, hadithEnglishText, referenceText.toString(), referenceBookText.toString(),language, hadithGradesModels));
                         }
                     }
                     if (currentHadithNumber.equals(submittedText) && isSearchNumber) {
@@ -169,7 +169,7 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
                         }
                         // only add ahadith which are translated. If there is no translation, dont show the hadith
                         if (!hadithEnglishText.equals("")) {
-                            hadithModels.add(new HadithModel(specificHadithBookReference.getString("hadith"), hadithArabicText, hadithEnglishText, referenceText.toString(), referenceBookText.toString(), hadithGradesModels));
+                            hadithModels.add(new HadithModel(specificHadithBookReference.getString("hadith"), hadithArabicText, hadithEnglishText, referenceText.toString(), referenceBookText.toString(),language, hadithGradesModels));
                         }
                     }
                 }

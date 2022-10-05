@@ -10,16 +10,21 @@ public class HadithModel {
     String referenceText;
     String referenceBookText;
 
+
+
+    String language;
+
     private boolean isExpandable;
     private List<HadithGradesModel> nestedList;
 
-    public HadithModel(String hadithNumber, String hadithArabicName, String hadithEnglishName, String referenceText, String referenceBookText,List<HadithGradesModel> itemList) {
+    public HadithModel(String hadithNumber, String hadithArabicName, String hadithEnglishName, String referenceText, String referenceBookText,String language,List<HadithGradesModel> itemList) {
         this.hadithNumber = hadithNumber;
         this.hadithArabicName = hadithArabicName;
         this.hadithEnglishName = hadithEnglishName;
 
         this.referenceText = referenceText;
         this.referenceBookText = referenceBookText;
+        this.language = language;
 
         isExpandable = false;
         this.nestedList = itemList;
@@ -57,6 +62,14 @@ public class HadithModel {
 
     public void setReferenceBookText(String referenceBookText) {
         this.referenceBookText = referenceBookText;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 
     public void setExpandable(boolean expandable) {
