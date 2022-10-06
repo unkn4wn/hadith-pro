@@ -4,7 +4,7 @@
 
         <EditTextPreference
             app:key="signature"
-            app:title="@string/signature_title"
+            app:title="THIS APP IS STILL IN BETA"
             app:useSimpleSummaryProvider="true" />
 
         <ListPreference
@@ -14,6 +14,34 @@
             app:key="language"
             app:title="@string/language_title"
             app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/appearance_header">
+
+        <CheckBoxPreference
+            app:key="display_arabic"
+            app:title="@string/display_arabic"
+            app:defaultValue="true"
+            />
+
+        <CheckBoxPreference
+            app:key="display_translation"
+            app:title="@string/display_translation"
+            app:defaultValue="true"
+            />
+
+        <SeekBarPreference
+            app:key="textsize_arabic"
+            app:title="@string/textsize_arabic"
+            app:defaultValue="20"
+            app:showSeekBarValue="true"/>
+
+        <SeekBarPreference
+            app:key="textsize_translation"
+            app:title="@string/textsize_translation"
+            app:defaultValue="20"
+            app:showSeekBarValue="true"/>
 
     </PreferenceCategory>
 

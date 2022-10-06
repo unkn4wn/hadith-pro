@@ -30,6 +30,10 @@ public class HadithFragment extends Fragment implements HadithInterface {
     TextView actionBarTitle;
     TextView sectionNumber, sectionText, sectionName;
 
+    RecyclerView recyclerView;
+    HadithAdapter adapter;
+    SharedPreferences sharedPreferences;
+
 
     public static HadithFragment newInstance(String bookId, int sectionId, String sectionIdName) {
         HadithFragment fragment = new HadithFragment();
@@ -68,14 +72,12 @@ public class HadithFragment extends Fragment implements HadithInterface {
         sectionText = mView.findViewById(R.id.sectionText);
         sectionName = mView.findViewById(R.id.sectionName);
 
+         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
         hadithModels = new ArrayList<>();
-        RecyclerView recyclerView = mView.findViewById(R.id.hadithRecyclerView);
-        long startTime = System.currentTimeMillis();
+        recyclerView = mView.findViewById(R.id.hadithRecyclerView);
         setupHadithModels();
-        long endTime = System.currentTimeMillis();
-        System.out.println("HADITH" + (endTime - startTime));
 
-        HadithAdapter adapter = new HadithAdapter(requireContext(), hadithModels, this, false);
+         adapter = new HadithAdapter(requireContext(), hadithModels, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
@@ -86,7 +88,6 @@ public class HadithFragment extends Fragment implements HadithInterface {
     private void setupHadithModels() {
         try {
             //read the arabic hadith json and the translated json according to the language
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
             String language = sharedPreferences.getString("language", "eng");
             String hadithBookArabic = IOUtils.toString(requireActivity().getAssets().open("ara-" + bookId + ".json"));
             String hadithBookEnglish = IOUtils.toString(requireActivity().getAssets().open(language + "-" + bookId + ".json"));
@@ -153,5 +154,11 @@ public class HadithFragment extends Fragment implements HadithInterface {
     @Override
     public void onItemClick(int position) {
         //  Toast.makeText(getApplicationContext(),hadithModels.get(position).getHadithGrades(),Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
     }
 }

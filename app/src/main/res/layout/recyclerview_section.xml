@@ -11,6 +11,7 @@
         android:layout_height="70dp"
         app:strokeWidth="0dp"
         app:cardBackgroundColor="?attr/backgroundColor"
+        android:layout_marginVertical="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,11 +26,12 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/materialCardViewIcon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            app:cardElevation="1dp"
+            android:layout_marginHorizontal="5dp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginStart="10dp"
             app:strokeWidth="0dp">
 
             <TextView
@@ -45,14 +47,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="45dp"
             android:layout_alignBottom="@+id/materialCardViewIcon"
             android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
-            android:gravity="top"
+            android:gravity="center_vertical"
             android:layout_toEndOf="@+id/materialCardViewIcon"
             android:orientation="vertical">
-
 
             <TextView
                 android:id="@+id/sectionName"
@@ -70,12 +71,7 @@
     </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <com.google.android.material.divider.MaterialDivider
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:dividerColor="?attr/colorSurface"
-        app:layout_constraintTop_toBottomOf="@+id/materialCardViewSections" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

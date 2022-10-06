@@ -80,7 +80,7 @@ public class BookmarkFragment extends Fragment implements HadithInterface {
         RecyclerView recyclerView = mView.findViewById(R.id.bookmarkRecyclerView);
         setupHadithModels();
 
-        HadithAdapter adapter = new HadithAdapter(requireContext(), hadithModels, this, false);
+        HadithAdapter adapter = new HadithAdapter(requireContext(), hadithModels, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 

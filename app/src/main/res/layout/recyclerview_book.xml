@@ -8,7 +8,7 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardViewBooks"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="75dp"
         app:strokeWidth="0dp"
         app:cardBackgroundColor="?attr/backgroundColor"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -27,8 +27,8 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/materialCardViewIcon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginHorizontal="10dp"
@@ -50,7 +50,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="45dp"
             android:layout_alignBottom="@+id/materialCardViewIcon"
             android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
@@ -64,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Book name"
-                android:textSize="16sp"
+                android:textSize="19sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/materialCardViewIcon"
                 app:layout_constraintTop_toTopOf="@+id/materialCardViewIcon" />
@@ -83,12 +83,6 @@
     </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <com.google.android.material.divider.MaterialDivider
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:dividerColor="?attr/colorSurface"
-        app:layout_constraintTop_toBottomOf="@+id/materialCardViewBooks" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

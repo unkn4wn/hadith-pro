@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/hadithRecyclerViewItemLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="?attr/backgroundColor">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="10dp"
+        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +36,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:layout_marginTop="20dp"
-                    app:cardElevation="2dp"
+                    app:cardElevation="1dp"
                     app:strokeWidth="0dp">
 
                     <TextView
@@ -122,7 +123,6 @@
                 android:id="@+id/gradeDivider"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 app:layout_constraintBottom_toTopOf="@+id/gradesLinearLayout"
                 app:layout_constraintTop_toBottomOf="@id/hadithNameEnglishLayout" />
 
@@ -136,6 +136,7 @@
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
+                    app:cardBackgroundColor="?attr/colorSurface"
                     app:strokeWidth="0dp"
                    app:cardCornerRadius="5dp">
 

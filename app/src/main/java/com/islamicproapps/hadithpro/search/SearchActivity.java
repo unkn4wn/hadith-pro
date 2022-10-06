@@ -41,7 +41,7 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
 
     ArrayList<String> displayName;
     boolean isSearchText, isSearchNumber;
-    boolean isSearchBukhari,isSearchMuslim,isSearchNasai,isSearchAbudawud,isSearchTirmidhi,isSearchIbnmajah,isSearchMalik;
+    boolean isSearchBukhari, isSearchMuslim, isSearchNasai, isSearchAbudawud, isSearchTirmidhi, isSearchIbnmajah, isSearchMalik;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +81,7 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
 
                 setupHadithModels();
 
-                HadithAdapter adapter = new HadithAdapter(SearchActivity.this, hadithModels, SearchActivity.this, true);
+                HadithAdapter adapter = new HadithAdapter(SearchActivity.this, hadithModels, SearchActivity.this);
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
                 return false;
@@ -94,19 +94,18 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
         });
 
 
-
     }
 
     private void setupHadithModels() {
         try {
             displayName = new ArrayList<>();
-            if(isSearchBukhari)   displayName.add("bukhari.min");
-            if(isSearchMuslim)   displayName.add("muslim.min");
-            if(isSearchNasai)   displayName.add("nasai.min");
-            if(isSearchAbudawud)   displayName.add("abudawud.min");
-            if(isSearchTirmidhi)   displayName.add("tirmidhi.min");
-            if(isSearchIbnmajah)   displayName.add("ibnmajah.min");
-            if(isSearchMalik)   displayName.add("malik.min");
+            if (isSearchBukhari) displayName.add("bukhari.min");
+            if (isSearchMuslim) displayName.add("muslim.min");
+            if (isSearchNasai) displayName.add("nasai.min");
+            if (isSearchAbudawud) displayName.add("abudawud.min");
+            if (isSearchTirmidhi) displayName.add("tirmidhi.min");
+            if (isSearchIbnmajah) displayName.add("ibnmajah.min");
+            if (isSearchMalik) displayName.add("malik.min");
 
             for (int k = 0; k < displayName.size(); k++) {
 
@@ -126,7 +125,7 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
                 // get the book name in full length and set the Action Bar
                 String fullBookName = hadithBookEnglishObject.getJSONObject("metadata").getString("name");
 
-
+                int count = 0;
                 for (int i = 0; i < hadithsEnglish.length(); i++) {
                     //Get one specific arabic Hadith
                     JSONObject specificHadithArabic = hadithsArabic.getJSONObject(i);
@@ -157,10 +156,10 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
                         }
                         // only add ahadith which are translated. If there is no translation, dont show the hadith
                         if (!hadithEnglishText.equals("")) {
-                            hadithModels.add(new HadithModel(specificHadithBookReference.getString("hadith"), hadithArabicText, hadithEnglishText, referenceText.toString(), referenceBookText.toString(),language, hadithGradesModels));
+                            hadithModels.add(new HadithModel(String.valueOf(++count), hadithArabicText, hadithEnglishText, referenceText.toString(), referenceBookText.toString(), language, hadithGradesModels));
                         }
                     }
-                    if (currentHadithNumber.equals(submittedText) && isSearchNumber) {
+                    if (currentHadithNumber.contains(submittedText) && isSearchNumber) {
                         //add grades from specific hadith
                         JSONArray grades = specificHadithEnglish.getJSONArray("grades");
                         ArrayList<HadithGradesModel> hadithGradesModels = new ArrayList<>();
@@ -169,7 +168,7 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
                         }
                         // only add ahadith which are translated. If there is no translation, dont show the hadith
                         if (!hadithEnglishText.equals("")) {
-                            hadithModels.add(new HadithModel(specificHadithBookReference.getString("hadith"), hadithArabicText, hadithEnglishText, referenceText.toString(), referenceBookText.toString(),language, hadithGradesModels));
+                            hadithModels.add(new HadithModel(specificHadithBookReference.getString("hadith"), hadithArabicText, hadithEnglishText, referenceText.toString(), referenceBookText.toString(), language, hadithGradesModels));
                         }
                     }
                 }

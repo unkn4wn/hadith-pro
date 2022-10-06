@@ -2,22 +2,23 @@
     <!-- Base application theme. -->
     <style name="Theme.HadithPro" parent="Theme.Material3.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#559b72</item>
+        <item name="colorPrimary">#50A89B</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondary">#F3EBE0</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimary</item>
+        <item name="colorOnSecondary">#49454F</item>
+
+        <item name="colorOutline">#C4C7C5</item>
+
         <!-- Customize your theme here. -->
 
         <item name="colorAccent">?attr/colorPrimary</item>
 
-        <item name="backgroundColor">#FFFFFF</item>
+        <item name="backgroundColor">#F5F6F8</item>
 
-        <item name="colorSurface">#f4f6f4</item>
+        <item name="colorSurface">#FFFFFF</item>
         <item name="colorOnSurface">#151D2C</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" >?attr/colorPrimary</item>

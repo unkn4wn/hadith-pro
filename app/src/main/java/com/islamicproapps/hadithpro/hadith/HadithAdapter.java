@@ -45,16 +45,14 @@ public class HadithAdapter extends RecyclerView.Adapter<HadithAdapter.MyViewHold
     Context context;
     List<HadithModel> mList;
     private List<HadithGradesModel> list = new ArrayList<>();
-    private boolean isSearch;
 
     HadithModel mModel;
 
 
-    public HadithAdapter(Context context, List<HadithModel> mList, HadithInterface hadithInterface, boolean isSearch) {
+    public HadithAdapter(Context context, List<HadithModel> mList, HadithInterface hadithInterface) {
         this.context = context;
         this.mList = mList;
         this.hadithInterface = hadithInterface;
-        this.isSearch = isSearch;
     }
 
     @NonNull
@@ -67,17 +65,14 @@ public class HadithAdapter extends RecyclerView.Adapter<HadithAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(@NonNull HadithAdapter.MyViewHolder holder, int position) {
-        if (isSearch) {
-            holder.hadithNumber.setText(String.valueOf(position));
-        } else {
-            holder.hadithNumber.setText(mList.get(position).getHadithNumber());
-        }
+
+        holder.hadithNumber.setText(mList.get(position).getHadithNumber());
+
         holder.hadithArabicName.setText(mList.get(position).getHadithArabicName());
         holder.hadithEnglishName.setText(mList.get(position).getHadithEnglishName());
 
         holder.referenceText.setText(mList.get(position).getReferenceText());
         holder.referenceBookText.setText(mList.get(position).getReferenceBookText());
-
 
         HadithModel model = mList.get(position);
         mModel = model;
@@ -117,33 +112,36 @@ public class HadithAdapter extends RecyclerView.Adapter<HadithAdapter.MyViewHold
             }
         });
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String language = sharedPreferences.getString("language", "eng");
-
         String currentReferenceText = holder.referenceText.getText().toString();
-        if (SharedPreferencesHelper.getValue(context, model.getLanguage()+currentReferenceText, false)) {
+        if (SharedPreferencesHelper.getValue(context, model.getLanguage() + currentReferenceText, false)) {
             holder.bookmarkIcon.setImageResource(R.drawable.symbol_bookmark_on);
         } else {
             holder.bookmarkIcon.setImageResource(R.drawable.symbol_bookmark_off);
         }
 
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        holder.hadithArabicName.setTextSize(sharedPreferences.getInt("textsize_arabic", 18));
+        holder.hadithEnglishName.setTextSize(sharedPreferences.getInt("textsize_translation", 18));
+        holder.hadithArabicName.setVisibility(sharedPreferences.getBoolean("display_arabic",true)?View.VISIBLE:View.GONE);
+        holder.hadithEnglishName.setVisibility(sharedPreferences.getBoolean("display_translation",true)?View.VISIBLE:View.GONE);
+
         holder.bookmarkCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MyDatabaseHelper myDatabaseHelper = new MyDatabaseHelper(context,view);
-                if (SharedPreferencesHelper.getValue(context, model.getLanguage()+currentReferenceText, false)) {
+                MyDatabaseHelper myDatabaseHelper = new MyDatabaseHelper(context, view);
+                if (SharedPreferencesHelper.getValue(context, model.getLanguage() + currentReferenceText, false)) {
                     holder.bookmarkIcon.setImageResource(R.drawable.symbol_bookmark_off);
-                    SharedPreferencesHelper.storeValue(context, model.getLanguage()+currentReferenceText, false);
+                    SharedPreferencesHelper.storeValue(context, model.getLanguage() + currentReferenceText, false);
                     myDatabaseHelper.deleteOneRowReference("hadiths", currentReferenceText, model.getLanguage());
-                    myDatabaseHelper.deleteOneRowReference("hadithsgrades", currentReferenceText,model.getLanguage());
+                    myDatabaseHelper.deleteOneRowReference("hadithsgrades", currentReferenceText, model.getLanguage());
                 } else {
                     holder.bookmarkIcon.setImageResource(R.drawable.symbol_bookmark_on);
-                    SharedPreferencesHelper.storeValue(context, model.getLanguage()+currentReferenceText, true);
+                    SharedPreferencesHelper.storeValue(context, model.getLanguage() + currentReferenceText, true);
 
-                    myDatabaseHelper.addHadith(holder.hadithArabicName.getText().toString(), holder.hadithEnglishName.getText().toString(), currentReferenceText, holder.referenceBookText.getText().toString(),model.getLanguage());
+                    myDatabaseHelper.addHadith(holder.hadithArabicName.getText().toString(), holder.hadithEnglishName.getText().toString(), currentReferenceText, holder.referenceBookText.getText().toString(), model.getLanguage());
 
                     for (int i = 0; i < model.getNestedList().size(); i++) {
-                        myDatabaseHelper.addHadithGrades(currentReferenceText, model.getNestedList().get(i).hadithGradesScholar, model.getNestedList().get(i).hadithGradesAuthenticity,model.getLanguage());
+                        myDatabaseHelper.addHadithGrades(currentReferenceText, model.getNestedList().get(i).hadithGradesScholar, model.getNestedList().get(i).hadithGradesAuthenticity, model.getLanguage());
                     }
                 }
             }
@@ -201,6 +199,7 @@ public class HadithAdapter extends RecyclerView.Adapter<HadithAdapter.MyViewHold
             });
         }
     }
+
 
     private void showDialogCopy(HadithAdapter.MyViewHolder holder, View mView) {
         final Dialog dialog = new Dialog(mView.getContext());

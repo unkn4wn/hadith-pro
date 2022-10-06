@@ -71,10 +71,14 @@
 
     <!-- Preference Titles -->
     <string name="language_header">Language</string>
+    <string name="appearance_header">Appearance</string>
     <string name="sync_header">Sync</string>
 
-    <!-- Messages Preferences -->
-    <string name="signature_title">THIS APP IS STILL IN BETA</string>
+    <!-- Appearance Preferences -->
+    <string name="display_arabic">Display Arabic Text</string>
+    <string name="display_translation">Display Translation Text</string>
+    <string name="textsize_arabic">Arabic Text Size</string>
+    <string name="textsize_translation">Translation Text Size</string>
     <string name="reply_title">Default reply action</string>
     <string name="language_title">Hadith language</string>
 

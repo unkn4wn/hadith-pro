@@ -3,11 +3,11 @@ package com.islamicproapps.hadithpro.section;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import androidx.appcompat.widget.SearchView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.islamicproapps.hadithpro.R;
@@ -31,7 +32,7 @@ public class SectionFragment extends Fragment implements SectionInterface {
     ArrayList<SectionModel> sectionModels;
     String bookId = "";
     TextView actionBarTitle;
-    SearchView searchView;
+    androidx.appcompat.widget.SearchView searchView;
 
     public static SectionFragment newInstance(String bookId) {
         SectionFragment fragment = new SectionFragment();
@@ -45,7 +46,7 @@ public class SectionFragment extends Fragment implements SectionInterface {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-       bookId= getArguments().getString("BookId");
+        bookId = getArguments().getString("BookId");
 
     }
 
@@ -70,17 +71,17 @@ public class SectionFragment extends Fragment implements SectionInterface {
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         searchView = mView.findViewById(R.id.searchView);
-        searchView.clearFocus();
+        searchView.setIconified(false);
         searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchView.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
+            public boolean onQueryTextSubmit(String s) {
                 return false;
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
+            public boolean onQueryTextChange(String s) {
+                adapter.getFilter().filter(s);
                 return false;
             }
         });
@@ -94,8 +95,8 @@ public class SectionFragment extends Fragment implements SectionInterface {
     private void setupSectionModels() {
         try {
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
-            String language = sharedPreferences.getString("language","eng");
-            String everything = IOUtils.toString(requireActivity().getAssets().open(language+"-"+bookId+".json"));
+            String language = sharedPreferences.getString("language", "eng");
+            String everything = IOUtils.toString(requireActivity().getAssets().open(language + "-" + bookId + ".json"));
             JSONObject hadithBookObject = new JSONObject(everything);
             JSONObject metadata = hadithBookObject.getJSONObject("metadata");
             String bookName = metadata.getString("name");
@@ -103,12 +104,12 @@ public class SectionFragment extends Fragment implements SectionInterface {
 
             JSONObject section = metadata.getJSONObject("sections");
 
-            for (int i =0;i<section.length();i++) {
+            for (int i = 0; i < section.length(); i++) {
                 String[] sectionname = new String[i + 1];
                 sectionname[i] = section.getString(String.valueOf(i));
 
                 if (!sectionname[i].equals("")) {
-                    sectionModels.add(new SectionModel(sectionname[i],i));
+                    sectionModels.add(new SectionModel(sectionname[i], i));
                 }
             }
         } catch (Exception e) {
@@ -117,9 +118,9 @@ public class SectionFragment extends Fragment implements SectionInterface {
     }
 
     @Override
-    public void onItemClick ( int position){
+    public void onItemClick(int position) {
         final FragmentTransaction ft = getParentFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment, HadithFragment.newInstance(bookId, sectionModels.get(position).getSectionNumber(), sectionModels.get(position).getSectionName()),"NewFragmentTag");
+        ft.replace(R.id.fragment, HadithFragment.newInstance(bookId, sectionModels.get(position).getSectionNumber(), sectionModels.get(position).getSectionName()), "NewFragmentTag");
         ft.addToBackStack(null);
         ft.commit();
     }
@@ -128,5 +129,6 @@ public class SectionFragment extends Fragment implements SectionInterface {
     public void onResume() {
         super.onResume();
         searchView.clearFocus();
+        searchView.setQuery("", false); // clear the text
     }
 }
