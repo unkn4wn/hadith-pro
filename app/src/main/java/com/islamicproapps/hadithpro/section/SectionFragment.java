@@ -3,6 +3,8 @@ package com.islamicproapps.hadithpro.section;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -16,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ImageView;
-import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.islamicproapps.hadithpro.R;
@@ -71,7 +72,6 @@ public class SectionFragment extends Fragment implements SectionInterface {
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         searchView = mView.findViewById(R.id.searchView);
-        searchView.setIconified(false);
         searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
         searchView.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
             @Override

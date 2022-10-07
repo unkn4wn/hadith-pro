@@ -34,6 +34,8 @@ public class BookmarkFragment extends Fragment implements HadithInterface {
     ArrayList<String> hadith_id, hadith_arabic, hadith_translated, hadith_gradeScholars, hadith_grades, hadith_reference, hadith_bookreference,hadith_language;
     MyDatabaseHelper myDatabaseHelper;
 
+    HadithAdapter adapter;
+
     public BookmarkFragment() {
         // Required empty public constructor
     }
@@ -80,7 +82,7 @@ public class BookmarkFragment extends Fragment implements HadithInterface {
         RecyclerView recyclerView = mView.findViewById(R.id.bookmarkRecyclerView);
         setupHadithModels();
 
-        HadithAdapter adapter = new HadithAdapter(requireContext(), hadithModels, this);
+         adapter = new HadithAdapter(requireContext(), hadithModels, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
@@ -134,5 +136,11 @@ public class BookmarkFragment extends Fragment implements HadithInterface {
     @Override
     public void onItemClick(int position) {
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
     }
 }

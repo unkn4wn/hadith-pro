@@ -1,6 +1,8 @@
 package com.islamicproapps.hadithpro.settings;
 
+import android.media.Image;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -39,6 +41,11 @@ public class SettingsActivity extends AppCompatActivity {
 
         TextView actionBarTitle = this.findViewById(R.id.actionbar_title);
         actionBarTitle.setText("Settings");
+
+        ImageView actionBarSearch = this.findViewById(R.id.actionbar_search);
+        actionBarSearch.setVisibility(View.GONE);
+        ImageView actionBarSettings = this.findViewById(R.id.actionbar_settings);
+        actionBarSettings.setVisibility(View.GONE);
 
 
 

@@ -14,11 +14,19 @@
         android:layout_height="match_parent"
         android:background="@drawable/background_round">
 
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            app:cardBackgroundColor="?attr/backgroundColor"
+            app:strokeWidth="0dp">
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/searchRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
+        </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
 

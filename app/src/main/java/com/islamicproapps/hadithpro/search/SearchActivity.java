@@ -78,9 +78,9 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
             public boolean onQueryTextSubmit(String query) {
                 submittedText = query;
                 hadithModels = new ArrayList<>();
-
+                long start = System.currentTimeMillis();
                 setupHadithModels();
-
+                System.out.println(System.currentTimeMillis() - start);
                 HadithAdapter adapter = new HadithAdapter(SearchActivity.this, hadithModels, SearchActivity.this);
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
@@ -106,8 +106,10 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
             if (isSearchTirmidhi) displayName.add("tirmidhi.min");
             if (isSearchIbnmajah) displayName.add("ibnmajah.min");
             if (isSearchMalik) displayName.add("malik.min");
-
+            int count = 0;
+            outer:
             for (int k = 0; k < displayName.size(); k++) {
+
 
                 //read the arabic hadith json and the translated json according to the language
                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -125,7 +127,7 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
                 // get the book name in full length and set the Action Bar
                 String fullBookName = hadithBookEnglishObject.getJSONObject("metadata").getString("name");
 
-                int count = 0;
+
                 for (int i = 0; i < hadithsEnglish.length(); i++) {
                     //Get one specific arabic Hadith
                     JSONObject specificHadithArabic = hadithsArabic.getJSONObject(i);
@@ -147,7 +149,7 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
                     String hadithArabicText = specificHadithArabic.getString("text"); //specific arabic hadith text
                     String hadithEnglishText = specificHadithEnglish.getString("text"); //specific translated hadith text
 
-                    if (hadithEnglishText.contains(submittedText) && isSearchText) {
+                    if (hadithEnglishText.contains(submittedText) && isSearchText || currentHadithNumber.contains(submittedText) && isSearchNumber) {
                         //add grades from specific hadith
                         JSONArray grades = specificHadithEnglish.getJSONArray("grades");
                         ArrayList<HadithGradesModel> hadithGradesModels = new ArrayList<>();
@@ -156,20 +158,13 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
                         }
                         // only add ahadith which are translated. If there is no translation, dont show the hadith
                         if (!hadithEnglishText.equals("")) {
-                            hadithModels.add(new HadithModel(String.valueOf(++count), hadithArabicText, hadithEnglishText, referenceText.toString(), referenceBookText.toString(), language, hadithGradesModels));
+                            hadithModels.add(new HadithModel(String.valueOf(++count), hadithArabicText, hadithEnglishText, referenceText.toString(), referenceBookText.toString(), language, hadithGradesModels,submittedText));
                         }
+
                     }
-                    if (currentHadithNumber.contains(submittedText) && isSearchNumber) {
-                        //add grades from specific hadith
-                        JSONArray grades = specificHadithEnglish.getJSONArray("grades");
-                        ArrayList<HadithGradesModel> hadithGradesModels = new ArrayList<>();
-                        for (int j = 0; j < grades.length(); j++) {
-                            hadithGradesModels.add(new HadithGradesModel(grades.getJSONObject(j).getString("name"), grades.getJSONObject(j).getString("grade")));
-                        }
-                        // only add ahadith which are translated. If there is no translation, dont show the hadith
-                        if (!hadithEnglishText.equals("")) {
-                            hadithModels.add(new HadithModel(specificHadithBookReference.getString("hadith"), hadithArabicText, hadithEnglishText, referenceText.toString(), referenceBookText.toString(), language, hadithGradesModels));
-                        }
+                    // show only first 100 items
+                    if (count == 100) {
+                        break outer;
                     }
                 }
             }

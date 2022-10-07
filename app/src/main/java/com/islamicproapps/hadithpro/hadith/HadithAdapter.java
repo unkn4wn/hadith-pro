@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.text.Spannable;
+import android.text.style.BackgroundColorSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -86,6 +88,7 @@ public class HadithAdapter extends RecyclerView.Adapter<HadithAdapter.MyViewHold
             holder.mArrowImage.setImageResource(R.drawable.ic_baseline_arrow_downward_24);
         }
 
+        //set Hadith Grades
         HadithGradesAdapter adapter = new HadithGradesAdapter(list);
         holder.nestedRecyclerView.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
         // holder.nestedRecyclerView.setHasFixedSize(true);
@@ -96,7 +99,7 @@ public class HadithAdapter extends RecyclerView.Adapter<HadithAdapter.MyViewHold
             notifyItemChanged(holder.getBindingAdapterPosition());
         });
 
-        //dont show grades if there are no grades
+        //dont show Grades if there are no grades
         if (model.getNestedList().size() == 0) {
             holder.linearLayout.setVisibility(View.GONE);
             holder.gradeTitleDivider.setVisibility(View.GONE);
@@ -105,6 +108,18 @@ public class HadithAdapter extends RecyclerView.Adapter<HadithAdapter.MyViewHold
             holder.gradeTitleDivider.setVisibility(View.VISIBLE);
         }
 
+        //Mark word after searching a word
+        if (!model.getMarkedWord().equals("")) {
+            String textString = holder.hadithEnglishName.getText().toString();
+            int startIndex = textString.indexOf(model.getMarkedWord());
+            int endIndex = startIndex + model.getMarkedWord().length();
+
+            Spannable spanText = Spannable.Factory.getInstance().newSpannable(textString);
+            spanText.setSpan(new BackgroundColorSpan(0xFFFFFF00), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            holder.hadithEnglishName.setText(spanText);
+        }
+
+        // implement copying Hadith
         holder.copyCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,6 +127,7 @@ public class HadithAdapter extends RecyclerView.Adapter<HadithAdapter.MyViewHold
             }
         });
 
+        // check if Hadith is bookmarked. If yes fill icon
         String currentReferenceText = holder.referenceText.getText().toString();
         if (SharedPreferencesHelper.getValue(context, model.getLanguage() + currentReferenceText, false)) {
             holder.bookmarkIcon.setImageResource(R.drawable.symbol_bookmark_on);
@@ -119,11 +135,13 @@ public class HadithAdapter extends RecyclerView.Adapter<HadithAdapter.MyViewHold
             holder.bookmarkIcon.setImageResource(R.drawable.symbol_bookmark_off);
         }
 
+        // change text size or hide text according to settings
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         holder.hadithArabicName.setTextSize(sharedPreferences.getInt("textsize_arabic", 18));
         holder.hadithEnglishName.setTextSize(sharedPreferences.getInt("textsize_translation", 18));
-        holder.hadithArabicName.setVisibility(sharedPreferences.getBoolean("display_arabic",true)?View.VISIBLE:View.GONE);
-        holder.hadithEnglishName.setVisibility(sharedPreferences.getBoolean("display_translation",true)?View.VISIBLE:View.GONE);
+        holder.hadithArabicName.setVisibility(sharedPreferences.getBoolean("display_arabic", true) ? View.VISIBLE : View.GONE);
+        holder.hadithEnglishName.setVisibility(sharedPreferences.getBoolean("display_translation", true) ? View.VISIBLE : View.GONE);
+
 
         holder.bookmarkCardView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -21,7 +21,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="10dp"
-            android:layout_weight="25"
+            android:layout_weight="30"
             app:cardBackgroundColor="?attr/colorSurface"
             app:strokeWidth="0dp">
 
@@ -32,16 +32,18 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                app:iconifiedByDefault="false" />
+                app:iconifiedByDefault="false"
+                app:queryBackground="@null"/>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/cancel_search"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="75"
+            android:layout_marginHorizontal="5dp"
+            android:layout_weight="70"
+            app:cornerRadius="5dp"
             android:text="@string/search_cancel_button"
             android:textColor="@color/white"
             app:strokeWidth="0dp" />
