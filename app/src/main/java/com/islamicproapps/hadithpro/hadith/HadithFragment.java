@@ -107,7 +107,7 @@ public class HadithFragment extends Fragment implements HadithInterface {
             int amountOfChapters = hadithBookEnglishObject.getJSONObject("metadata").getJSONObject("sections").length();
 
             sectionNumber.setText(sectionId + "/" + amountOfChapters);
-            sectionText.setText("Chapter " + sectionId);
+            sectionText.setText(getResources().getString(R.string.chapterText)+" " + sectionId);
             sectionName.setText(sectionIdName);
 
             for (int i = 0; i < hadithsArabic.length(); i++) {

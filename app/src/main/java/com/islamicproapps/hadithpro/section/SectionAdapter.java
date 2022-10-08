@@ -58,15 +58,12 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.MyViewHo
             sectionName = itemView.findViewById(R.id.sectionName);
             sectionNumber = itemView.findViewById(R.id.sectionNumber);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (sectionInterface != null) {
-                        int pos = getBindingAdapterPosition();
+            itemView.setOnClickListener(view -> {
+                if (sectionInterface != null) {
+                    int pos = getBindingAdapterPosition();
 
-                        if(pos!=RecyclerView.NO_POSITION) {
-                            sectionInterface.onItemClick(pos);
-                        }
+                    if(pos!=RecyclerView.NO_POSITION) {
+                        sectionInterface.onItemClick(pos);
                     }
                 }
             });

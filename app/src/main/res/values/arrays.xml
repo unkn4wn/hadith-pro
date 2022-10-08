@@ -2,14 +2,14 @@
 
     <!-- Hadith language Preference -->
     <string-array name="language_entries">
-        <item>Arabic</item>
-        <item>Bengali</item>
-        <item>English</item>
-        <item>French</item>
-        <item>Indonesian</item>
-        <item>Tamil</item>
-        <item>Turkish</item>
-        <item>Urdu</item>
+        <item>@string/language_arabic</item>
+        <item>@string/language_bengali</item>
+        <item>@string/language_english</item>
+        <item>@string/language_french</item>
+        <item>@string/language_indonesian</item>
+        <item>@string/language_tamil</item>
+        <item>@string/language_turkish</item>
+        <item>@string/language_urdu</item>
     </string-array>
 
     <string-array name="language_values">

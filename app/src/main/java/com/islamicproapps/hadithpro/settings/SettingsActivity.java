@@ -35,12 +35,10 @@ public class SettingsActivity extends AppCompatActivity {
         actionBarSymbol.setImageResource(R.drawable.symbol_back);
 
         drawerLayout = this.findViewById(R.id.drawerLayout);
-        actionBarSymbol.setOnClickListener(view -> {
-         this.onBackPressed();
-        });
+        actionBarSymbol.setOnClickListener(view -> this.onBackPressed());
 
         TextView actionBarTitle = this.findViewById(R.id.actionbar_title);
-        actionBarTitle.setText("Settings");
+        actionBarTitle.setText(getResources().getString(R.string.title_settings));
 
         ImageView actionBarSearch = this.findViewById(R.id.actionbar_search);
         actionBarSearch.setVisibility(View.GONE);

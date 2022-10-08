@@ -17,7 +17,7 @@ public class HadithModel {
     String language;
 
     private boolean isExpandable;
-    private List<HadithGradesModel> nestedList;
+    private final List<HadithGradesModel> nestedList;
 
     public HadithModel(String hadithNumber, String hadithArabicName, String hadithEnglishName, String referenceText, String referenceBookText,String language,List<HadithGradesModel> itemList) {
         this.hadithNumber = hadithNumber;

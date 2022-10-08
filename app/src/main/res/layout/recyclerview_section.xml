@@ -40,7 +40,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="B"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                tools:ignore="HardcodedText" />
 
 
         </com.google.android.material.card.MaterialCardView>
@@ -64,7 +65,8 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/materialCardViewIcon"
-                app:layout_constraintTop_toTopOf="@+id/materialCardViewIcon" />
+                app:layout_constraintTop_toTopOf="@+id/materialCardViewIcon"
+                tools:ignore="HardcodedText" />
 
         </LinearLayout>
 

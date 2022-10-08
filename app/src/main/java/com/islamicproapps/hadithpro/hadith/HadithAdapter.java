@@ -9,7 +9,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.text.Spannable;
 import android.text.style.BackgroundColorSpan;
-import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,15 +28,15 @@ import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.islamicproapps.hadithpro.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.divider.MaterialDivider;
 import com.google.android.material.snackbar.Snackbar;
+import com.islamicproapps.hadithpro.R;
 import com.islamicproapps.hadithpro.helper.MyDatabaseHelper;
 import com.islamicproapps.hadithpro.helper.SharedPreferencesHelper;
-import com.islamicproapps.hadithpro.settings.SettingsActivity;
+import com.islamicproapps.hadithpro.search.SearchActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -109,23 +109,30 @@ public class HadithAdapter extends RecyclerView.Adapter<HadithAdapter.MyViewHold
         }
 
         //Mark word after searching a word
-        if (!model.getMarkedWord().equals("")) {
-            String textString = holder.hadithEnglishName.getText().toString();
-            int startIndex = textString.indexOf(model.getMarkedWord());
-            int endIndex = startIndex + model.getMarkedWord().length();
+        if (!model.getMarkedWord().isEmpty()) {
+            TypedValue typedValue = new TypedValue();
+            context.getTheme().resolveAttribute(com.google.android.material.R.attr.colorPrimary, typedValue, true);
+            int color = typedValue.data;
 
-            Spannable spanText = Spannable.Factory.getInstance().newSpannable(textString);
-            spanText.setSpan(new BackgroundColorSpan(0xFFFFFF00), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            holder.hadithEnglishName.setText(spanText);
+            if (SearchActivity.isSearchText) {
+                String textString = holder.hadithEnglishName.getText().toString();
+                int startIndex = textString.indexOf(model.getMarkedWord());
+                int endIndex = startIndex + model.getMarkedWord().length();
+                Spannable spanText = Spannable.Factory.getInstance().newSpannable(textString);
+                spanText.setSpan(new BackgroundColorSpan(color), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                holder.hadithEnglishName.setText(spanText);
+            } else {
+                String textString = holder.referenceText.getText().toString();
+                int startIndex = textString.indexOf(model.getMarkedWord());
+                int endIndex = startIndex + model.getMarkedWord().length();
+                Spannable spanText = Spannable.Factory.getInstance().newSpannable(textString);
+                spanText.setSpan(new BackgroundColorSpan(color), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                holder.referenceText.setText(spanText);
+            }
         }
 
         // implement copying Hadith
-        holder.copyCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDialogCopy(holder, view);
-            }
-        });
+        holder.copyCardView.setOnClickListener(view -> showDialogCopy(holder, view));
 
         // check if Hadith is bookmarked. If yes fill icon
         String currentReferenceText = holder.referenceText.getText().toString();
@@ -137,30 +144,28 @@ public class HadithAdapter extends RecyclerView.Adapter<HadithAdapter.MyViewHold
 
         // change text size or hide text according to settings
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        holder.hadithArabicName.setTextSize(sharedPreferences.getInt("textsize_arabic", 18));
+        holder.hadithArabicName.setTextSize(sharedPreferences.getInt("textsize_arabic", 21));
         holder.hadithEnglishName.setTextSize(sharedPreferences.getInt("textsize_translation", 18));
         holder.hadithArabicName.setVisibility(sharedPreferences.getBoolean("display_arabic", true) ? View.VISIBLE : View.GONE);
         holder.hadithEnglishName.setVisibility(sharedPreferences.getBoolean("display_translation", true) ? View.VISIBLE : View.GONE);
 
 
-        holder.bookmarkCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MyDatabaseHelper myDatabaseHelper = new MyDatabaseHelper(context, view);
-                if (SharedPreferencesHelper.getValue(context, model.getLanguage() + currentReferenceText, false)) {
-                    holder.bookmarkIcon.setImageResource(R.drawable.symbol_bookmark_off);
-                    SharedPreferencesHelper.storeValue(context, model.getLanguage() + currentReferenceText, false);
-                    myDatabaseHelper.deleteOneRowReference("hadiths", currentReferenceText, model.getLanguage());
-                    myDatabaseHelper.deleteOneRowReference("hadithsgrades", currentReferenceText, model.getLanguage());
-                } else {
-                    holder.bookmarkIcon.setImageResource(R.drawable.symbol_bookmark_on);
-                    SharedPreferencesHelper.storeValue(context, model.getLanguage() + currentReferenceText, true);
+        holder.bookmarkCardView.setOnClickListener(view -> {
+            MyDatabaseHelper myDatabaseHelper = new MyDatabaseHelper(context, view);
+            if (SharedPreferencesHelper.getValue(context, model.getLanguage() + currentReferenceText, false)) {
+                holder.bookmarkIcon.setImageResource(R.drawable.symbol_bookmark_off);
+                SharedPreferencesHelper.storeValue(context, model.getLanguage() + currentReferenceText, false);
+                // delete hadith and grades from database if bookmark is removed
+                myDatabaseHelper.deleteOneRowReference("hadiths", currentReferenceText, model.getLanguage());
+                myDatabaseHelper.deleteOneRowReference("hadithsgrades", currentReferenceText, model.getLanguage());
+            } else {
+                holder.bookmarkIcon.setImageResource(R.drawable.symbol_bookmark_on);
+                SharedPreferencesHelper.storeValue(context, model.getLanguage() + currentReferenceText, true);
 
-                    myDatabaseHelper.addHadith(holder.hadithArabicName.getText().toString(), holder.hadithEnglishName.getText().toString(), currentReferenceText, holder.referenceBookText.getText().toString(), model.getLanguage());
+                myDatabaseHelper.addHadith(holder.hadithArabicName.getText().toString(), holder.hadithEnglishName.getText().toString(), currentReferenceText, holder.referenceBookText.getText().toString(), model.getLanguage());
 
-                    for (int i = 0; i < model.getNestedList().size(); i++) {
-                        myDatabaseHelper.addHadithGrades(currentReferenceText, model.getNestedList().get(i).hadithGradesScholar, model.getNestedList().get(i).hadithGradesAuthenticity, model.getLanguage());
-                    }
+                for (int i = 0; i < model.getNestedList().size(); i++) {
+                    myDatabaseHelper.addHadithGrades(currentReferenceText, model.getNestedList().get(i).hadithGradesScholar, model.getNestedList().get(i).hadithGradesAuthenticity, model.getLanguage());
                 }
             }
         });
@@ -176,15 +181,15 @@ public class HadithAdapter extends RecyclerView.Adapter<HadithAdapter.MyViewHold
         TextView hadithNumber, hadithArabicName, hadithEnglishName;
         TextView referenceText, referenceBookText;
 
-        private LinearLayout linearLayout;
-        private RelativeLayout expandableLayout;
-        private ImageView mArrowImage;
-        private RecyclerView nestedRecyclerView;
-        private MaterialDivider gradeTitleDivider;
+        private final LinearLayout linearLayout;
+        private final RelativeLayout expandableLayout;
+        private final ImageView mArrowImage;
+        private final RecyclerView nestedRecyclerView;
+        private final MaterialDivider gradeTitleDivider;
 
-        private MaterialCardView copyCardView;
-        private MaterialCardView bookmarkCardView;
-        private ImageView bookmarkIcon;
+        private final MaterialCardView copyCardView;
+        private final MaterialCardView bookmarkCardView;
+        private final ImageView bookmarkIcon;
 
         public MyViewHolder(@NonNull View itemView, HadithInterface hadithInterface) {
             super(itemView);
@@ -242,7 +247,7 @@ public class HadithAdapter extends RecyclerView.Adapter<HadithAdapter.MyViewHold
 
             if (copyGrades.isChecked()) {
                 stringBuilder.append("\n");
-                stringBuilder.append("Grades: ");
+                stringBuilder.append(context.getResources().getString(R.string.search_grade_title)).append(": ");
                 for (int i = 0; i < mModel.getNestedList().size(); i++) {
                     stringBuilder.append("\n");
                     stringBuilder.append(mModel.getNestedList().get(i).hadithGradesScholar);
@@ -250,10 +255,10 @@ public class HadithAdapter extends RecyclerView.Adapter<HadithAdapter.MyViewHold
                     stringBuilder.append(mModel.getNestedList().get(i).hadithGradesAuthenticity);
                 }
             }
-            stringBuilder.append(copyReference.isChecked() ? "\n" + "Reference: " + holder.referenceText.getText() : "")
-                    .append(copyReference.isChecked() ? "\n" + "In-book reference: " + holder.referenceBookText.getText() : "");
+            stringBuilder.append(copyReference.isChecked() ? "\n" + context.getResources().getString(R.string.reference)+": " + holder.referenceText.getText() : "")
+                    .append(copyReference.isChecked() ? "\n" + context.getResources().getString(R.string.reference_book)+": " + holder.referenceBookText.getText() : "");
             stringBuilder.append("\n");
-            stringBuilder.append("Copied from Hadith Pro");
+            stringBuilder.append(context.getString(R.string.copyright));
 
             if (!stringBuilder.toString().isEmpty()) {
                 ClipboardManager clipboard = (ClipboardManager) mView.getContext().getSystemService(Context.CLIPBOARD_SERVICE);

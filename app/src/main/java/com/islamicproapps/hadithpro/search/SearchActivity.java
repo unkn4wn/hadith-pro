@@ -38,23 +38,20 @@ import java.util.ArrayList;
 public class SearchActivity extends AppCompatActivity implements HadithInterface {
     ArrayList<HadithModel> hadithModels;
     String submittedText = "";
+    Button cancelButton;
 
     ArrayList<String> displayName;
-    boolean isSearchText, isSearchNumber;
+    public static boolean isSearchText, isSearchNumber;
     boolean isSearchBukhari, isSearchMuslim, isSearchNasai, isSearchAbudawud, isSearchTirmidhi, isSearchIbnmajah, isSearchMalik;
+    public static boolean isSearchSahih, isSearchDaif;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        Button cancelButton = this.findViewById(R.id.cancel_search);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+         cancelButton = this.findViewById(R.id.cancel_search);
+        cancelButton.setOnClickListener(view -> onBackPressed());
 
         isSearchText = true;
         isSearchNumber = true;
@@ -67,6 +64,9 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
         isSearchIbnmajah = true;
         isSearchMalik = true;
 
+        isSearchSahih = true;
+        isSearchDaif = true;
+
         MaterialCardView filterCardView = this.findViewById(R.id.filterCardView);
         filterCardView.setOnClickListener(view -> showDialogFilter());
 
@@ -78,9 +78,7 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
             public boolean onQueryTextSubmit(String query) {
                 submittedText = query;
                 hadithModels = new ArrayList<>();
-                long start = System.currentTimeMillis();
                 setupHadithModels();
-                System.out.println(System.currentTimeMillis() - start);
                 HadithAdapter adapter = new HadithAdapter(SearchActivity.this, hadithModels, SearchActivity.this);
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
@@ -149,21 +147,33 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
                     String hadithArabicText = specificHadithArabic.getString("text"); //specific arabic hadith text
                     String hadithEnglishText = specificHadithEnglish.getString("text"); //specific translated hadith text
 
-                    if (hadithEnglishText.contains(submittedText) && isSearchText || currentHadithNumber.contains(submittedText) && isSearchNumber) {
+                    if (!hadithEnglishText.isEmpty() && (hadithEnglishText.contains(submittedText) && isSearchText || currentHadithNumber.contains(submittedText) && isSearchNumber)) {
                         //add grades from specific hadith
                         JSONArray grades = specificHadithEnglish.getJSONArray("grades");
                         ArrayList<HadithGradesModel> hadithGradesModels = new ArrayList<>();
+                        boolean foundDaif = false;
                         for (int j = 0; j < grades.length(); j++) {
-                            hadithGradesModels.add(new HadithGradesModel(grades.getJSONObject(j).getString("name"), grades.getJSONObject(j).getString("grade")));
+                            String scholarName = grades.getJSONObject(j).getString("name");
+                            String scholarGrade = grades.getJSONObject(j).getString("grade");
+                            if (scholarGrade.toLowerCase().contains("daif") || scholarGrade.toLowerCase().contains("mawdu")) {
+                                foundDaif = true;
+                            }
+                            hadithGradesModels.add(new HadithGradesModel(scholarName, scholarGrade));
                         }
                         // only add ahadith which are translated. If there is no translation, dont show the hadith
-                        if (!hadithEnglishText.equals("")) {
-                            hadithModels.add(new HadithModel(String.valueOf(++count), hadithArabicText, hadithEnglishText, referenceText.toString(), referenceBookText.toString(), language, hadithGradesModels,submittedText));
-                        }
+                        if (isSearchSahih && isSearchDaif) {
+                            hadithModels.add(new HadithModel(String.valueOf(++count), hadithArabicText, hadithEnglishText, referenceText.toString(), referenceBookText.toString(), language, hadithGradesModels, submittedText));
+                        } else if (isSearchSahih) {
+                            if (!foundDaif)
+                                hadithModels.add(new HadithModel(String.valueOf(++count), hadithArabicText, hadithEnglishText, referenceText.toString(), referenceBookText.toString(), language, hadithGradesModels, submittedText));
 
+                        } else if (isSearchDaif) {
+                            if (foundDaif)
+                                hadithModels.add(new HadithModel(String.valueOf(++count), hadithArabicText, hadithEnglishText, referenceText.toString(), referenceBookText.toString(), language, hadithGradesModels, submittedText));
+                        }
                     }
                     // show only first 100 items
-                    if (count == 100) {
+                    if (count == 200) {
                         break outer;
                     }
                 }
@@ -206,6 +216,9 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
         MaterialButton buttonIbnmajah = dialog.findViewById(R.id.buttonIbnmajah);
         MaterialButton buttonMalik = dialog.findViewById(R.id.buttonMalik);
 
+        MaterialButton buttonSahih = dialog.findViewById(R.id.buttonSahih);
+        MaterialButton buttonDaif = dialog.findViewById(R.id.buttonDaif);
+
 
         buttonText.setTextColor(isSearchText ? getResources().getColor(R.color.white) : onBackgroundColor);
         buttonText.setBackgroundColor(isSearchText ? primaryColor : surfaceColor);
@@ -226,6 +239,11 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
         buttonIbnmajah.setBackgroundColor(isSearchIbnmajah ? primaryColor : surfaceColor);
         buttonMalik.setTextColor(isSearchMalik ? getResources().getColor(R.color.white) : onBackgroundColor);
         buttonMalik.setBackgroundColor(isSearchMalik ? primaryColor : surfaceColor);
+
+        buttonSahih.setTextColor(isSearchSahih ? getResources().getColor(R.color.white) : onBackgroundColor);
+        buttonSahih.setBackgroundColor(isSearchSahih ? primaryColor : surfaceColor);
+        buttonDaif.setTextColor(isSearchDaif ? getResources().getColor(R.color.white) : onBackgroundColor);
+        buttonDaif.setBackgroundColor(isSearchDaif ? primaryColor : surfaceColor);
 
 
         buttonText.setOnClickListener(view -> {
@@ -280,6 +298,18 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
             buttonMalik.setTextColor(isSearchMalik ? onBackgroundColor : getResources().getColor(R.color.white));
             buttonMalik.setBackgroundColor(isSearchMalik ? surfaceColor : primaryColor);
             isSearchMalik = !isSearchMalik;
+        });
+
+        buttonSahih.setOnClickListener(view -> {
+            buttonSahih.setTextColor(isSearchSahih ? onBackgroundColor : getResources().getColor(R.color.white));
+            buttonSahih.setBackgroundColor(isSearchSahih ? surfaceColor : primaryColor);
+            isSearchSahih = !isSearchSahih;
+        });
+
+        buttonDaif.setOnClickListener(view -> {
+            buttonDaif.setTextColor(isSearchDaif ? onBackgroundColor : getResources().getColor(R.color.white));
+            buttonDaif.setBackgroundColor(isSearchDaif ? surfaceColor : primaryColor);
+            isSearchDaif = !isSearchDaif;
         });
 
         //    dialog.setOnDismissListener(dialogInterface -> setAlarm());

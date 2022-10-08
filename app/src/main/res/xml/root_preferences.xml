@@ -1,4 +1,5 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory app:title="@string/language_header">
 
@@ -20,38 +21,36 @@
     <PreferenceCategory app:title="@string/appearance_header">
 
         <CheckBoxPreference
-            app:key="display_arabic"
-            app:title="@string/display_arabic"
             app:defaultValue="true"
-            />
+            app:key="display_arabic"
+            app:title="@string/display_arabic" />
 
         <CheckBoxPreference
-            app:key="display_translation"
-            app:title="@string/display_translation"
             app:defaultValue="true"
-            />
+            app:key="display_translation"
+            app:title="@string/display_translation" />
 
         <SeekBarPreference
+            app:defaultValue="20"
             app:key="textsize_arabic"
-            app:title="@string/textsize_arabic"
-            app:defaultValue="20"
-            app:showSeekBarValue="true"/>
+            app:showSeekBarValue="true"
+            app:title="@string/textsize_arabic" />
 
         <SeekBarPreference
-            app:key="textsize_translation"
-            app:title="@string/textsize_translation"
             app:defaultValue="20"
-            app:showSeekBarValue="true"/>
+            app:key="textsize_translation"
+            app:showSeekBarValue="true"
+            app:title="@string/textsize_translation" />
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="If you found any error, please email us">
+    <PreferenceCategory
+        app:title="@string/contact_us">
 
         <Preference
             app:key="signature"
             app:title="islamictechapps@googlemail.com"
-            app:useSimpleSummaryProvider="true" />
-
+            app:useSimpleSummaryProvider="true"/>
     </PreferenceCategory>
 
 </PreferenceScreen>

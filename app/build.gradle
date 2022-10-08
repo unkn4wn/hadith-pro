@@ -4,12 +4,12 @@ plugins {
 
 android {
     namespace 'com.islamicproapps.hadithpro'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.islamicproapps.hadithpro"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -44,7 +44,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     //noinspection DuplicatePlatformClasses
-    implementation 'org.json:json:20220320'
+    implementation 'org.json:json:20220924'
 
     implementation 'org.apache.commons:commons-io:1.3.2'
 

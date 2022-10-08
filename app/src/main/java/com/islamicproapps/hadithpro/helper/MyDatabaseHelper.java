@@ -15,8 +15,8 @@ import com.islamicproapps.hadithpro.R;
 
 public class MyDatabaseHelper extends SQLiteOpenHelper {
 
-    private Context context;
-    private View mView;
+    private final Context context;
+    private final View mView;
     private static final String DATABASE_NAME = "Bookmark.db";
     private static final int DATABASE_VERSION = 1;
 

@@ -12,7 +12,7 @@
             android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/mRecyclerView2"
+                android:id="@+id/bookRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
         </LinearLayout>

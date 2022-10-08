@@ -44,7 +44,7 @@ public class BookFragment extends Fragment implements BookInterface {
 
         bookModels = new ArrayList<>();
 
-        RecyclerView recyclerView = mView.findViewById(R.id.mRecyclerView2);
+        RecyclerView recyclerView = mView.findViewById(R.id.bookRecyclerView);
         setupHadithModels();
 
         BookAdapter adapter = new BookAdapter(requireContext(), bookModels,this);
@@ -109,7 +109,7 @@ public class BookFragment extends Fragment implements BookInterface {
         bookIconText.add("M");
 
         for (int i = 0;i<bookName.size();i++) {
-            bookModels.add(new BookModel(bookName.get(i),displayName.get(i),"By: " + bookScholar.get(i),bookIconColor.get(i),bookIconText.get(i)));
+            bookModels.add(new BookModel(bookName.get(i),displayName.get(i),getResources().getString(R.string.by_author) +" " + bookScholar.get(i),bookIconColor.get(i),bookIconText.get(i)));
         }
     }
 
@@ -127,12 +127,7 @@ public class BookFragment extends Fragment implements BookInterface {
          ImageView actionBarMenu = requireActivity().findViewById(R.id.actionbar_left);
         actionBarMenu.setImageResource(R.drawable.symbol_menu3);
         DrawerLayout drawerLayout = requireActivity().findViewById(R.id.drawerLayout);
-        actionBarMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.openDrawer(GravityCompat.START);
-            }
-        });
+        actionBarMenu.setOnClickListener(view -> drawerLayout.openDrawer(GravityCompat.START));
 
         TextView actionBarTitle = requireActivity().findViewById(R.id.actionbar_title);
             actionBarTitle.setText(getResources().getString(R.string.title_book));

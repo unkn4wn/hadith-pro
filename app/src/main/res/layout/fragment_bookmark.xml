@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="?attr/colorPrimary">
 
@@ -11,9 +12,16 @@
         android:background="@drawable/background_round"
         android:orientation="vertical">
 
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:strokeWidth="0dp"
+            app:cardBackgroundColor="?attr/backgroundColor"
+            android:layout_marginTop="10dp">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/bookmarkRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+        </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 </LinearLayout>

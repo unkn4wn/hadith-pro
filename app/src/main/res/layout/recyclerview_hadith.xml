@@ -10,7 +10,7 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +45,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="2"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        tools:ignore="HardcodedText" />
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
@@ -97,7 +98,9 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:text="Arabic Hadith name"
-                android:textSize="20sp" />
+                android:fontFamily="@font/uthman"
+                android:textSize="20sp"
+                tools:ignore="HardcodedText" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -113,10 +116,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="20dp"
-                android:text="English Hadith name"
+                android:text="Translation Hadith name"
                 android:textSize="20sp"
                 android:textStyle="bold"
-               />
+                tools:ignore="HardcodedText" />
 
             </RelativeLayout>
             <com.google.android.material.divider.MaterialDivider
@@ -151,7 +154,7 @@
                         android:id="@+id/gradesTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="Grades"
+                        android:text="@string/search_grade_title"
                         android:gravity="center_vertical"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -215,7 +218,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="50"
-                        android:text="Sahih Bukhari 60" />
+                        android:text="Sahih Bukhari 60"
+                        tools:ignore="HardcodedText" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -236,7 +240,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="50"
-                        android:text="Book 1, Hadith 1" />
+                        android:text="Book 1, Hadith 1"
+                        tools:ignore="HardcodedText" />
                 </LinearLayout>
 
             </LinearLayout>

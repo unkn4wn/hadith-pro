@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Hadith Pro</string>
-    <string name="title_activity_settings">SettingsActivity</string>
 
     
     <!-- Book Fragment -->
@@ -16,6 +15,7 @@
     <string name="malik_book">Muwatta Malik</string>
 
     <!-- Book Author -->
+    <string name="by_author">By:</string>
     <string name="bukhari_author">Imam al-Bukhari</string>
     <string name="muslim_author">Imam Muslim</string>
     <string name="nasai_author">Imam an-Nasa\'i</string>
@@ -31,6 +31,7 @@
 
     <!-- Hadith Fragment -->
     <!-- Reference -->
+    <string name="chapterText">Chapter</string>
     <string name="reference">Reference</string>
     <string name="reference_book">In-book reference</string>
 
@@ -47,6 +48,8 @@
     <string name="message_copy_success">Copied successfully</string>
     <string name="message_copy_error">Nothing copied</string>
 
+    <!-- Copy text -->
+    <string name="copyright">Copied from Hadith Pro (Download our app from https://github.com/unkn4wn/hadith-pro/releases/tag/Latest)</string>
 
     <!-- Bookmark -->
     <!-- Title -->
@@ -66,21 +69,39 @@
     <!-- Bottomsheet Filter -->
     <string name="search_only_title">Search only</string>
     <string name="search_in_title">Search in</string>
+    <string name="search_grade_title">Grades</string>
     <string name="search_book_text">Hadith Text</string>
     <string name="search_book_number">Hadith Number</string>
+    <string name="search_grade_sahih">Sahih</string>
+    <string name="search_grade_daif">Daif</string>
 
+    <!-- Preferences -->
+    <!-- Title -->
+    <string name="title_settings">Settings</string>
     <!-- Preference Titles -->
     <string name="language_header">Language</string>
     <string name="appearance_header">Appearance</string>
     <string name="sync_header">Sync</string>
+
+    <!-- Language Preferences -->
+    <string name="language_title">Hadith language</string>
+    <string name="language_arabic">Arabic</string>
+    <string name="language_bengali">Bengali</string>
+    <string name="language_english">English</string>
+    <string name="language_french">French</string>
+    <string name="language_indonesian">Indonesian</string>
+    <string name="language_tamil">Tamil</string>
+    <string name="language_turkish">Turkish</string>
+    <string name="language_urdu">Urdu</string>
 
     <!-- Appearance Preferences -->
     <string name="display_arabic">Display Arabic Text</string>
     <string name="display_translation">Display Translation Text</string>
     <string name="textsize_arabic">Arabic Text Size</string>
     <string name="textsize_translation">Translation Text Size</string>
-    <string name="reply_title">Default reply action</string>
-    <string name="language_title">Hadith language</string>
+
+    <!-- Contact us Preference -->
+    <string name="contact_us">If you found any error, please email us</string>
 
     <!-- Sync Preferences -->
     <string name="sync_title">Sync email periodically</string>

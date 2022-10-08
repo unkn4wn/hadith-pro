@@ -40,67 +40,51 @@ public class MainActivity extends AppCompatActivity {
          drawerLayout = findViewById(R.id.drawerLayout);
 
         ImageView actionBarMenu = this.findViewById(R.id.actionbar_left);
-        actionBarMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                drawerLayout.openDrawer(GravityCompat.START);
-            }
-        });
+        actionBarMenu.setOnClickListener(view -> drawerLayout.openDrawer(GravityCompat.START));
 
         NavigationView navigationView = findViewById(R.id.navigationView);
         navigationView.setItemIconTintList(null);
 
-
-
-  //       NavController navController = Navigation.findNavController(this, R.id.fragment);
-    //      NavigationUI.setupWithNavController(navigationView, navController);
-
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == R.id.book) {
-                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                    transaction.replace(R.id.fragment, new BookFragment()); // give your fragment container id in first parameter
-                    transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
-                    transaction.commit();
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                } else if (item.getItemId() == R.id.bookmark) {
-                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                    transaction.replace(R.id.fragment, new BookmarkFragment()); // give your fragment container id in first parameter
-                    transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
-                    transaction.commit();
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                } else if (item.getItemId() == R.id.rate) {
-                    final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
-                    try {
-                   //     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
-                    } catch (android.content.ActivityNotFoundException anfe) {
-                    //    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
-                    }
-                } else if (item.getItemId() == R.id.reference) {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/fawazahmed0/hadith-api/blob/1/References.md"));
-                    startActivity(browserIntent);
-                } else if (item.getItemId() == R.id.moreapps) {
-                    try {
-                      //  startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://dev?id=7498034169100742685")));
-                    } catch (android.content.ActivityNotFoundException anfe) {
-                       // startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/dev?id=7498034169100742685")));
-                    }
-                } else if (item.getItemId() == R.id.contribute) {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/fawazahmed0/hadith-api#contribution")));
+        navigationView.setNavigationItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.book) {
+                FragmentTransaction transaction1 = getSupportFragmentManager().beginTransaction();
+                transaction1.replace(R.id.fragment, new BookFragment()); // give your fragment container id in first parameter
+                transaction1.addToBackStack(null);  // if written, this transaction will be added to backstack
+                transaction1.commit();
+                drawerLayout.closeDrawer(GravityCompat.START);
+            } else if (item.getItemId() == R.id.bookmark) {
+                FragmentTransaction transaction1 = getSupportFragmentManager().beginTransaction();
+                transaction1.replace(R.id.fragment, new BookmarkFragment()); // give your fragment container id in first parameter
+                transaction1.addToBackStack(null);  // if written, this transaction will be added to backstack
+                transaction1.commit();
+                drawerLayout.closeDrawer(GravityCompat.START);
+            } else if (item.getItemId() == R.id.rate) {
+                final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+                try {
+               //     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                } catch (android.content.ActivityNotFoundException anfe) {
+                //    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
                 }
-
-                return false;
+            } else if (item.getItemId() == R.id.reference) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/fawazahmed0/hadith-api/blob/1/References.md"));
+                startActivity(browserIntent);
+            } else if (item.getItemId() == R.id.moreapps) {
+                try {
+                  //  startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://dev?id=7498034169100742685")));
+                } catch (android.content.ActivityNotFoundException anfe) {
+                   // startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/dev?id=7498034169100742685")));
+                }
+            } else if (item.getItemId() == R.id.contribute) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/fawazahmed0/hadith-api#contribution")));
             }
+
+            return false;
         });
 
         ImageView actionBarSearch = this.findViewById(R.id.actionbar_search);
-        actionBarSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-                startActivity(intent);
-            }
+        actionBarSearch.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+            startActivity(intent);
         });
 
         ImageView actionbarSettings = this.findViewById(R.id.actionbar_settings);

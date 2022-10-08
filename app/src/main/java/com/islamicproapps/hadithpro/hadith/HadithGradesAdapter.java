@@ -15,7 +15,7 @@ import com.google.android.material.card.MaterialCardView;
 import java.util.List;
 
 public class HadithGradesAdapter extends RecyclerView.Adapter<HadithGradesAdapter.NestedViewHolder> {
-    private List<HadithGradesModel> hadithGradesModelList;
+    private final List<HadithGradesModel> hadithGradesModelList;
     private View view;
 
     public HadithGradesAdapter(List<HadithGradesModel> hadithGradesModelList) {
@@ -48,10 +48,10 @@ public class HadithGradesAdapter extends RecyclerView.Adapter<HadithGradesAdapte
         return hadithGradesModelList.size();
     }
 
-    public class NestedViewHolder extends RecyclerView.ViewHolder{
-        private TextView gradesScholar;
-        private TextView gradesAuthenticitiy;
-        private MaterialCardView gradesAuthenticityCardView;
+    public static class NestedViewHolder extends RecyclerView.ViewHolder{
+        private final TextView gradesScholar;
+        private final TextView gradesAuthenticitiy;
+        private final MaterialCardView gradesAuthenticityCardView;
 
         public NestedViewHolder(@NonNull View itemView) {
             super(itemView);

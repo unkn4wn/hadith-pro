@@ -48,7 +48,8 @@
                         android:layout_gravity="center"
                         android:text="1/25"
                         android:textColor="@color/white"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        tools:ignore="HardcodedText" />
 
 
                 </com.google.android.material.card.MaterialCardView>
@@ -74,7 +75,8 @@
                         android:textStyle="bold"
                         android:textColor="?attr/colorOnSecondary"
                         app:layout_constraintStart_toEndOf="@+id/materialCardViewIcon"
-                        app:layout_constraintTop_toTopOf="@+id/materialCardViewIcon" />
+                        app:layout_constraintTop_toTopOf="@+id/materialCardViewIcon"
+                        tools:ignore="HardcodedText" />
 
                     <TextView
                         android:id="@+id/sectionName"
@@ -84,7 +86,8 @@
                         android:textSize="12sp"
                         android:textColor="?attr/colorOnSecondary"
                         app:layout_constraintBottom_toBottomOf="@+id/materialCardViewIcon"
-                        app:layout_constraintStart_toStartOf="@+id/bookName" />
+                        app:layout_constraintStart_toStartOf="@+id/bookName"
+                        tools:ignore="HardcodedText" />
 
                 </LinearLayout>
 

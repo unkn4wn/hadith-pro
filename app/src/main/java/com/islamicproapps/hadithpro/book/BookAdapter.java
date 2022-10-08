@@ -62,15 +62,12 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.MyViewHolder> 
         materialCardViewIcon = itemView.findViewById(R.id.materialCardViewIcon);
         bookIconText = itemView.findViewById(R.id.bookIconText);
 
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (bookInterface != null) {
-                    int pos = getBindingAdapterPosition();
+        itemView.setOnClickListener(view -> {
+            if (bookInterface != null) {
+                int pos = getBindingAdapterPosition();
 
-                    if(pos!=RecyclerView.NO_POSITION) {
-                        bookInterface.onItemClick(pos);
-                    }
+                if(pos!=RecyclerView.NO_POSITION) {
+                    bookInterface.onItemClick(pos);
                 }
             }
         });
