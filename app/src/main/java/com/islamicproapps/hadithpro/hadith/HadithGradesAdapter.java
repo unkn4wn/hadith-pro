@@ -35,7 +35,7 @@ public class HadithGradesAdapter extends RecyclerView.Adapter<HadithGradesAdapte
         holder.gradesAuthenticitiy.setText(hadithGradesModelList.get(position).getHadithGradesAuthenticity());
         String gradesAuthenticityText = holder.gradesAuthenticitiy.getText().toString();
 
-        if(gradesAuthenticityText.contains("Daif") || gradesAuthenticityText.contains("Mawdu")) {
+        if(gradesAuthenticityText.contains("Daif") || gradesAuthenticityText.contains("Mawdu") || gradesAuthenticityText.contains("Munqar") || gradesAuthenticityText.contains("Shadh")) {
             TypedValue typedValue = new TypedValue();
             view.getContext().getTheme().resolveAttribute(com.google.android.material.R.attr.colorError, typedValue, true);
             int color = typedValue.data;

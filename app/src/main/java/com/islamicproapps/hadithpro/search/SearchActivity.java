@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -21,6 +22,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.google.android.material.progressindicator.BaseProgressIndicator;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.islamicproapps.hadithpro.R;
 import com.islamicproapps.hadithpro.hadith.HadithAdapter;
 import com.islamicproapps.hadithpro.hadith.HadithGradesModel;
@@ -38,7 +41,9 @@ import java.util.ArrayList;
 public class SearchActivity extends AppCompatActivity implements HadithInterface {
     ArrayList<HadithModel> hadithModels;
     String submittedText = "";
-    Button cancelButton;
+    MaterialCardView cancelButton;
+    CircularProgressIndicator circularProgressIndicator;
+    TextView cancelText;
 
     ArrayList<String> displayName;
     public static boolean isSearchText, isSearchNumber;
@@ -50,8 +55,11 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-         cancelButton = this.findViewById(R.id.cancel_search);
+         cancelButton = this.findViewById(R.id.cancel_cardView);
         cancelButton.setOnClickListener(view -> onBackPressed());
+        circularProgressIndicator = this.findViewById(R.id.progress_circular);
+
+        cancelText = this.findViewById(R.id.cancel_text);
 
         isSearchText = true;
         isSearchNumber = true;
@@ -76,12 +84,32 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                submittedText = query;
-                hadithModels = new ArrayList<>();
-                setupHadithModels();
-                HadithAdapter adapter = new HadithAdapter(SearchActivity.this, hadithModels, SearchActivity.this);
-                recyclerView.setAdapter(adapter);
-                recyclerView.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
+                cancelText.setVisibility(View.GONE);
+                circularProgressIndicator.setVisibility(View.VISIBLE);
+                circularProgressIndicator.setIndeterminate(true);
+
+                Handler handler = new Handler();
+                Runnable runnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        submittedText = query;
+                        hadithModels = new ArrayList<>();
+                        setupHadithModels();
+                        HadithAdapter adapter = new HadithAdapter(SearchActivity.this, hadithModels, SearchActivity.this);
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            recyclerView.setAdapter(adapter);
+                            recyclerView.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
+                            circularProgressIndicator.setVisibility(View.GONE);
+                            cancelText.setVisibility(View.VISIBLE);
+                        }
+                    });
+                    }
+                };
+                Thread thread = new Thread(runnable);
+                thread.start();
+
                 return false;
             }
 
@@ -155,7 +183,7 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
                         for (int j = 0; j < grades.length(); j++) {
                             String scholarName = grades.getJSONObject(j).getString("name");
                             String scholarGrade = grades.getJSONObject(j).getString("grade");
-                            if (scholarGrade.toLowerCase().contains("daif") || scholarGrade.toLowerCase().contains("mawdu")) {
+                            if (scholarGrade.toLowerCase().contains("daif") || scholarGrade.toLowerCase().contains("mawdu")|| scholarGrade.toLowerCase().contains("munqar") || scholarGrade.toLowerCase().contains("shadh")) {
                                 foundDaif = true;
                             }
                             hadithGradesModels.add(new HadithGradesModel(scholarName, scholarGrade));
