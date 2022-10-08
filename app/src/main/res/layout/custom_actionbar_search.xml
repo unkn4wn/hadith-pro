@@ -33,20 +33,48 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 app:iconifiedByDefault="false"
-                app:queryBackground="@null"/>
+                app:queryBackground="@null">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                   android:text="SDJIASJDISA"
+                    android:textColor="@color/black"
+                    />
+
+            </androidx.appcompat.widget.SearchView>
         </com.google.android.material.card.MaterialCardView>
 
-        <com.google.android.material.button.MaterialButton
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/cancel_search"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:layout_gravity="center_vertical"
             android:layout_marginHorizontal="5dp"
             android:layout_weight="70"
+            app:cardBackgroundColor="?attr/colorPrimary"
             app:cornerRadius="5dp"
-            android:text="@string/search_cancel_button"
-            android:textColor="@color/white"
-            app:strokeWidth="0dp" />
+            app:strokeWidth="0dp" >
+
+            <TextView
+                android:id="@+id/cancel_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/search_cancel_button"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                />
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/search_progressbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                app:indicatorColor="@color/purple_200"/>
+
+        </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 
     <LinearLayout

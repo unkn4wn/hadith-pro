@@ -8,19 +8,24 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.Filter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.islamicproapps.hadithpro.R;
 import com.islamicproapps.hadithpro.hadith.HadithAdapter;
 import com.islamicproapps.hadithpro.hadith.HadithGradesModel;
@@ -43,12 +48,16 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
     boolean isSearchText, isSearchNumber;
     boolean isSearchBukhari, isSearchMuslim, isSearchNasai, isSearchAbudawud, isSearchTirmidhi, isSearchIbnmajah, isSearchMalik;
 
+    CircularProgressIndicator circularProgressIndicator;
+    TextView cancelText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        Button cancelButton = this.findViewById(R.id.cancel_search);
+         cancelText = this.findViewById(R.id.cancel_text);
+        MaterialCardView cancelButton = this.findViewById(R.id.cancel_search);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,22 +85,29 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                submittedText = query;
-                hadithModels = new ArrayList<>();
-                long start = System.currentTimeMillis();
+                hadithModels = new ArrayList<>(1000);
                 setupHadithModels();
-                System.out.println(System.currentTimeMillis() - start);
                 HadithAdapter adapter = new HadithAdapter(SearchActivity.this, hadithModels, SearchActivity.this);
+                if(isSearchText && isSearchNumber) {
+                    adapter.getFilter().filter(query);
+                } else if(isSearchText) {
+                    adapter.getTextFilter().filter(query);
+                } else if (isSearchNumber) {
+                    adapter.getNumberFilter().filter(query);
+                }
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
-                return false;
+                return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
+
+
                 return false;
             }
         });
+
 
 
     }
@@ -106,8 +122,6 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
             if (isSearchTirmidhi) displayName.add("tirmidhi.min");
             if (isSearchIbnmajah) displayName.add("ibnmajah.min");
             if (isSearchMalik) displayName.add("malik.min");
-            int count = 0;
-            outer:
             for (int k = 0; k < displayName.size(); k++) {
 
 
@@ -149,7 +163,6 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
                     String hadithArabicText = specificHadithArabic.getString("text"); //specific arabic hadith text
                     String hadithEnglishText = specificHadithEnglish.getString("text"); //specific translated hadith text
 
-                    if (hadithEnglishText.contains(submittedText) && isSearchText || currentHadithNumber.contains(submittedText) && isSearchNumber) {
                         //add grades from specific hadith
                         JSONArray grades = specificHadithEnglish.getJSONArray("grades");
                         ArrayList<HadithGradesModel> hadithGradesModels = new ArrayList<>();
@@ -157,15 +170,10 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
                             hadithGradesModels.add(new HadithGradesModel(grades.getJSONObject(j).getString("name"), grades.getJSONObject(j).getString("grade")));
                         }
                         // only add ahadith which are translated. If there is no translation, dont show the hadith
-                        if (!hadithEnglishText.equals("")) {
-                            hadithModels.add(new HadithModel(String.valueOf(++count), hadithArabicText, hadithEnglishText, referenceText.toString(), referenceBookText.toString(), language, hadithGradesModels,submittedText));
+                        if (!hadithEnglishText.isEmpty()) {
+                            hadithModels.add(new HadithModel("", hadithArabicText, hadithEnglishText, referenceText.toString(), referenceBookText.toString(), language, hadithGradesModels,submittedText));
                         }
 
-                    }
-                    // show only first 100 items
-                    if (count == 100) {
-                        break outer;
-                    }
                 }
             }
         } catch (Exception e) {
@@ -282,7 +290,9 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
             isSearchMalik = !isSearchMalik;
         });
 
-        //    dialog.setOnDismissListener(dialogInterface -> setAlarm());
+            dialog.setOnDismissListener((DialogInterface dialogInterface) -> {
+                //setAlarm();
+            });
 
         closeButton.setOnClickListener(view -> dialog.dismiss());
 

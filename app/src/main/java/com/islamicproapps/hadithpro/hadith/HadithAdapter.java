@@ -15,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -36,12 +38,13 @@ import com.google.android.material.divider.MaterialDivider;
 import com.google.android.material.snackbar.Snackbar;
 import com.islamicproapps.hadithpro.helper.MyDatabaseHelper;
 import com.islamicproapps.hadithpro.helper.SharedPreferencesHelper;
+import com.islamicproapps.hadithpro.section.SectionModel;
 import com.islamicproapps.hadithpro.settings.SettingsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HadithAdapter extends RecyclerView.Adapter<HadithAdapter.MyViewHolder> {
+public class HadithAdapter extends RecyclerView.Adapter<HadithAdapter.MyViewHolder> implements Filterable {
     private final HadithInterface hadithInterface;
 
     Context context;
@@ -275,5 +278,108 @@ public class HadithAdapter extends RecyclerView.Adapter<HadithAdapter.MyViewHold
         dialog.getWindow().getAttributes().windowAnimations = com.google.android.material.R.style.Animation_Design_BottomSheetDialog;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
     }
-}
+
+    @Override
+    public Filter getFilter() {
+        return sectionFilter;
+    }
+
+    private Filter sectionFilter = new Filter() {
+
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            ArrayList<HadithModel> filteredList = new ArrayList<>();
+            String filterPattern = charSequence.toString().toLowerCase().trim();
+
+            int count = 0;
+            for (HadithModel item : mList) {
+                if (item.getHadithEnglishName().toLowerCase().contains(filterPattern)) {
+                    item.setHadithNumber(String.valueOf(++count));
+                    filteredList.add(item);
+                } else if(item.getReferenceText().toLowerCase().contains(filterPattern)){
+                    item.setHadithNumber(String.valueOf(++count));
+                    filteredList.add(item);
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            mList.clear();
+            mList.addAll((ArrayList) filterResults.values);
+            notifyDataSetChanged();
+        }
+    };
+
+
+
+        //get Text filter
+        public Filter getTextFilter() {
+            return mTextFilter;
+        }
+
+        private Filter mTextFilter = new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                ArrayList<HadithModel> filteredList = new ArrayList<>();
+                String filterPattern = charSequence.toString().toLowerCase().trim();
+
+                int count = 0;
+                for (HadithModel item : mList) {
+                    if (item.getHadithEnglishName().toLowerCase().contains(filterPattern)) {
+                        filteredList.add(item);
+                        item.setHadithNumber(String.valueOf(++count));
+                    }
+                }
+                FilterResults results = new FilterResults();
+                results.values = filteredList;
+
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                mList.clear();
+                mList.addAll((ArrayList) filterResults.values);
+                notifyDataSetChanged();
+            }
+        };
+
+
+        //get Number filter
+        public Filter getNumberFilter() {
+            return mNumberFilter;
+        }
+
+        private Filter mNumberFilter = new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                ArrayList<HadithModel> filteredList = new ArrayList<>();
+                String filterPattern = charSequence.toString().toLowerCase().trim();
+
+                int count = 0;
+                for (HadithModel item : mList) {
+                    if (item.getReferenceText().toLowerCase().contains(filterPattern)) {
+                        filteredList.add(item);
+                        item.setHadithNumber(String.valueOf(++count));
+                    }
+                }
+                FilterResults results = new FilterResults();
+                results.values = filteredList;
+
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                mList.clear();
+                mList.addAll((ArrayList) filterResults.values);
+                notifyDataSetChanged();
+            }
+        };
+    }
 
