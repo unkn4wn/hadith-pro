@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Hadith Pro</string>
 
-    
+
     <!-- Book Fragment -->
     <!-- Title -->
     <string name="title_book">Books</string>
@@ -24,7 +24,7 @@
     <string name="ibnmajah_author">Imam Ibn Majah</string>
     <string name="malik_author">Imam Malik</string>
 
-    
+
     <!-- Section Fragment -->
     <!-- Search -->
     <string name="search_hint">Search chapter</string>
@@ -59,6 +59,10 @@
     <string name="message_bookmark_remove">Removed Successfully!</string>
     <string name="message_bookmark_add_error">Failed to Add</string>
     <string name="message_bookmark_remove_error">Failed to Remove</string>
+
+    <!-- Random Hadith -->
+    <!-- Title -->
+    <string name="title_random">Random Hadith</string>
 
 
     <!-- Search -->

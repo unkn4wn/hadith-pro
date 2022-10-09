@@ -19,6 +19,7 @@ import android.widget.ImageView;
 
 import com.islamicproapps.hadithpro.book.BookFragment;
 import com.islamicproapps.hadithpro.bookmark.BookmarkFragment;
+import com.islamicproapps.hadithpro.random.RandomFragment;
 import com.islamicproapps.hadithpro.search.SearchActivity;
 import com.islamicproapps.hadithpro.settings.SettingsActivity;
 import com.google.android.material.navigation.NavigationView;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
         transaction.commit();
 
-         drawerLayout = findViewById(R.id.drawerLayout);
+        drawerLayout = findViewById(R.id.drawerLayout);
 
         ImageView actionBarMenu = this.findViewById(R.id.actionbar_left);
         actionBarMenu.setOnClickListener(view -> drawerLayout.openDrawer(GravityCompat.START));
@@ -58,24 +59,32 @@ public class MainActivity extends AppCompatActivity {
                 transaction1.addToBackStack(null);  // if written, this transaction will be added to backstack
                 transaction1.commit();
                 drawerLayout.closeDrawer(GravityCompat.START);
+            } else if (item.getItemId() == R.id.random) {
+                FragmentTransaction transaction1 = getSupportFragmentManager().beginTransaction();
+                transaction1.replace(R.id.fragment, new RandomFragment()); // give your fragment container id in first parameter
+                transaction1.addToBackStack(null);  // if written, this transaction will be added to backstack
+                transaction1.commit();
+                drawerLayout.closeDrawer(GravityCompat.START);
             } else if (item.getItemId() == R.id.rate) {
                 final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
                 try {
-               //     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                    //  startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
                 } catch (android.content.ActivityNotFoundException anfe) {
-                //    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                    //  startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
                 }
             } else if (item.getItemId() == R.id.reference) {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/fawazahmed0/hadith-api/blob/1/References.md"));
                 startActivity(browserIntent);
             } else if (item.getItemId() == R.id.moreapps) {
                 try {
-                  //  startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://dev?id=7498034169100742685")));
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://dev?id=7498034169100742685")));
                 } catch (android.content.ActivityNotFoundException anfe) {
-                   // startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/dev?id=7498034169100742685")));
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/dev?id=7498034169100742685")));
                 }
             } else if (item.getItemId() == R.id.contribute) {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/fawazahmed0/hadith-api#contribution")));
+            } else if (item.getItemId() == R.id.sourcecode) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/unkn4wn/hadith-pro")));
             }
 
             return false;
@@ -103,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(drawerToggle.onOptionsItemSelected(item)) {
+        if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
 

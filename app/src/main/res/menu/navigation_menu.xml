@@ -13,6 +13,10 @@
                 android:id="@+id/bookmark"
                 android:icon="@drawable/navi_bookmark"
                 android:title="Bookmark" />
+            <item
+                android:id="@+id/random"
+                android:icon="@drawable/navi_random"
+                android:title="Random Hadith" />
         </menu>
     </item>
 
@@ -29,11 +33,15 @@
             <item
                 android:id="@+id/moreapps"
                 android:icon="@drawable/navi_moreapps"
-                android:title="More apps (not available)" />
+                android:title="More apps" />
             <item
                 android:id="@+id/contribute"
                 android:icon="@drawable/navi_info2"
                 android:title="How to contribute" />
+            <item
+                android:id="@+id/sourcecode"
+                android:icon="@drawable/navi_source"
+                android:title="Source code" />
         </menu>
     </item>
 </menu>
