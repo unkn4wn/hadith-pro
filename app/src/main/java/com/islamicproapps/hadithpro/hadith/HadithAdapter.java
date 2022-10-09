@@ -114,20 +114,31 @@ public class HadithAdapter extends RecyclerView.Adapter<HadithAdapter.MyViewHold
             context.getTheme().resolveAttribute(com.google.android.material.R.attr.colorPrimary, typedValue, true);
             int color = typedValue.data;
 
-            if (SearchActivity.isSearchText) {
+            if(SearchActivity.isSearchTranslatedText && holder.hadithEnglishName.getText().toString().contains(model.getMarkedWord())) {
                 String textString = holder.hadithEnglishName.getText().toString();
                 int startIndex = textString.indexOf(model.getMarkedWord());
                 int endIndex = startIndex + model.getMarkedWord().length();
                 Spannable spanText = Spannable.Factory.getInstance().newSpannable(textString);
                 spanText.setSpan(new BackgroundColorSpan(color), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 holder.hadithEnglishName.setText(spanText);
-            } else {
+            }
+
+            if(SearchActivity.isSearchNumber && holder.referenceText.getText().toString().contains(model.getMarkedWord())) {
                 String textString = holder.referenceText.getText().toString();
                 int startIndex = textString.indexOf(model.getMarkedWord());
                 int endIndex = startIndex + model.getMarkedWord().length();
                 Spannable spanText = Spannable.Factory.getInstance().newSpannable(textString);
                 spanText.setSpan(new BackgroundColorSpan(color), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 holder.referenceText.setText(spanText);
+            }
+
+            if(SearchActivity.isSearchArabicText && holder.hadithArabicName.getText().toString().contains(model.getMarkedWord())) {
+                String textString = holder.hadithArabicName.getText().toString();
+                int startIndex = textString.indexOf(model.getMarkedWord());
+                int endIndex = startIndex + model.getMarkedWord().length();
+                Spannable spanText = Spannable.Factory.getInstance().newSpannable(textString);
+                spanText.setSpan(new BackgroundColorSpan(color), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                holder.hadithArabicName.setText(spanText);
             }
         }
 

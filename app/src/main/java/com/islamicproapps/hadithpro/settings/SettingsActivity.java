@@ -1,14 +1,18 @@
 package com.islamicproapps.hadithpro.settings;
 
+import android.content.Intent;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.islamicproapps.hadithpro.R;
@@ -53,6 +57,15 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
+        }
+
+        @Override
+        public boolean onPreferenceTreeClick(@NonNull Preference preference) {
+            if (preference.getKey().equals("updates")) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/unkn4wn/hadith-pro/releases")));
+            }
+            return super.onPreferenceTreeClick(preference);
+
         }
     }
 

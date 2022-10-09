@@ -63,6 +63,9 @@
     <!-- Random Hadith -->
     <!-- Title -->
     <string name="title_random">Random Hadith</string>
+    <!-- RefreshCardview -->
+    <string name="random_cardview_hadith">Show me an Hadith</string>
+    <string name="random_cardview_anotherhadith">Show me another Hadith</string>
 
 
     <!-- Search -->
@@ -74,7 +77,8 @@
     <string name="search_only_title">Search only</string>
     <string name="search_in_title">Search in</string>
     <string name="search_grade_title">Grades</string>
-    <string name="search_book_text">Hadith Text</string>
+    <string name="search_book_translatedtext">Translated Hadith Text</string>
+    <string name="search_book_arabictext">Arabic Hadith Text</string>
     <string name="search_book_number">Hadith Number</string>
     <string name="search_grade_sahih">Sahih</string>
     <string name="search_grade_daif">Daif</string>

@@ -103,7 +103,7 @@ public class SectionFragment extends Fragment implements SectionInterface {
                 String[] sectionname = new String[i + 1];
                 sectionname[i] = section.getString(String.valueOf(i));
 
-                if (!sectionname[i].equals("")) {
+                if (!sectionname[i].isEmpty()) {
                     sectionModels.add(new SectionModel(sectionname[i], i));
                 }
             }

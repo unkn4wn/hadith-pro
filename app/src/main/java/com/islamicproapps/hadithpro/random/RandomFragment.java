@@ -58,36 +58,45 @@ public class RandomFragment extends Fragment implements HadithInterface {
         displayName[5] = ("ibnmajah.min");
         displayName[6] = ("malik.min");
 
-        int randomBook = new Random().nextInt(7);
 
 
-
-        //read the arabic hadith json and the translated json according to the language
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
-         language = sharedPreferences.getString("language", "eng");
-        try {
-             hadithBookArabic = IOUtils.toString(requireContext().getAssets().open("ara-" + displayName[randomBook] + ".json"));
-             hadithBookEnglish = IOUtils.toString(requireContext().getAssets().open(language + "-" + displayName[randomBook] + ".json"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_random, container, false);
+        View mView = inflater.inflate(R.layout.fragment_random, container, false);
+        MaterialCardView refreshCardView = mView.findViewById(R.id.refreshCardView);
+        refreshCardView.setOnClickListener(view -> {
+            int randomBook = new Random().nextInt(7);
 
-        RecyclerView recyclerView = view.findViewById(R.id.randomRecyclerView);
-        hadithModels= new ArrayList<>();
-        setupHadithModels();
+            //read the arabic hadith json and the translated json according to the language
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
+            language = sharedPreferences.getString("language", "eng");
+            try {
+                hadithBookArabic = IOUtils.toString(requireContext().getAssets().open("ara-" + displayName[randomBook] + ".json"));
+                hadithBookEnglish = IOUtils.toString(requireContext().getAssets().open(language + "-" + displayName[randomBook] + ".json"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-        HadithAdapter adapter = new HadithAdapter(requireContext(), hadithModels, this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+            RecyclerView recyclerView = mView.findViewById(R.id.randomRecyclerView);
 
-        return view;
+            hadithModels= new ArrayList<>();
+            setupHadithModels();
+
+            HadithAdapter adapter = new HadithAdapter(requireContext(), hadithModels, RandomFragment.this);
+            recyclerView.setAdapter(adapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+            TextView refreshText = view.findViewById(R.id.refreshText);
+            refreshText.setText(requireContext().getResources().getString(R.string.random_cardview_anotherhadith));
+        });
+
+
+
+        return mView;
     }
 
 
@@ -117,15 +126,12 @@ public class RandomFragment extends Fragment implements HadithInterface {
                 String currentHadithNumber = specificHadithEnglish.getString("hadithnumber"); //Current absolute Number of hadith
 
                 //Display reference text correctly
-                StringBuilder referenceText = new StringBuilder();
-                StringBuilder referenceBookText = new StringBuilder();
-                referenceText.append(fullBookName).append(" ").append(currentHadithNumber);
-                referenceBookText.append("Book ").append(currentChapterNumber).append(", ").append("Hadith ").append(currentHadithNumberInChapter);
+            String referenceText = fullBookName + " " + currentHadithNumber;
+            String referenceBookText = "Book " + currentChapterNumber + ", " + "Hadith " + currentHadithNumberInChapter;
 
                 String hadithArabicText = specificHadithArabic.getString("text"); //specific arabic hadith text
                 String hadithEnglishText = specificHadithEnglish.getString("text"); //specific translated hadith text
 
-                if (!hadithEnglishText.isEmpty()) {
                     //add grades from specific hadith
                     JSONArray grades = specificHadithEnglish.getJSONArray("grades");
                     ArrayList<HadithGradesModel> hadithGradesModels = new ArrayList<>();
@@ -135,8 +141,7 @@ public class RandomFragment extends Fragment implements HadithInterface {
                         hadithGradesModels.add(new HadithGradesModel(scholarName, scholarGrade));
                     }
                     // only add ahadith which are translated. If there is no translation, dont show the hadith
-                    hadithModels.add(new HadithModel(String.valueOf(1), hadithArabicText, hadithEnglishText, referenceText.toString(), referenceBookText.toString(), language, hadithGradesModels));
-                }
+                    hadithModels.add(new HadithModel(String.valueOf(1), hadithArabicText, hadithEnglishText, referenceText, referenceBookText, language, hadithGradesModels));
         }catch (Exception e) {
             e.printStackTrace();
         }
@@ -157,5 +162,7 @@ public class RandomFragment extends Fragment implements HadithInterface {
 
         TextView actionBarTitle = requireActivity().findViewById(R.id.actionbar_title);
         actionBarTitle.setText(getResources().getString(R.string.title_random));
+
+
     }
 }

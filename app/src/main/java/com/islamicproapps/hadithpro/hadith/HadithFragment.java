@@ -133,7 +133,7 @@ public class HadithFragment extends Fragment implements HadithInterface {
                     String hadithEnglishText = specificHadithEnglish.getString("text"); //specific translated hadith text
 
                     // only add ahadith which are translated. If there is no translation, dont show the hadith
-                    if (!hadithEnglishText.equals("")) {
+                    if (!hadithEnglishText.isEmpty()) {
 
                         //add grades from specific hadith
                         JSONArray grades = specificHadithEnglish.getJSONArray("grades");

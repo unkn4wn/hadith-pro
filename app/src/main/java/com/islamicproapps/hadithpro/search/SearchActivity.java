@@ -18,12 +18,12 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.android.material.progressindicator.BaseProgressIndicator;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
+import com.google.android.material.snackbar.Snackbar;
 import com.islamicproapps.hadithpro.R;
 import com.islamicproapps.hadithpro.hadith.HadithAdapter;
 import com.islamicproapps.hadithpro.hadith.HadithGradesModel;
@@ -46,7 +46,7 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
     TextView cancelText;
 
     ArrayList<String> displayName;
-    public static boolean isSearchText, isSearchNumber;
+    public static boolean isSearchArabicText,isSearchTranslatedText, isSearchNumber;
     boolean isSearchBukhari, isSearchMuslim, isSearchNasai, isSearchAbudawud, isSearchTirmidhi, isSearchIbnmajah, isSearchMalik;
     public static boolean isSearchSahih, isSearchDaif;
 
@@ -61,7 +61,8 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
 
         cancelText = this.findViewById(R.id.cancel_text);
 
-        isSearchText = true;
+        isSearchArabicText = true;
+        isSearchTranslatedText = true;
         isSearchNumber = true;
 
         isSearchBukhari = true;
@@ -89,23 +90,20 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
                 circularProgressIndicator.setIndeterminate(true);
 
                 Handler handler = new Handler();
-                Runnable runnable = new Runnable() {
-                    @Override
-                    public void run() {
-                        submittedText = query;
-                        hadithModels = new ArrayList<>();
-                        setupHadithModels();
-                        HadithAdapter adapter = new HadithAdapter(SearchActivity.this, hadithModels, SearchActivity.this);
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            recyclerView.setAdapter(adapter);
-                            recyclerView.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
-                            circularProgressIndicator.setVisibility(View.GONE);
-                            cancelText.setVisibility(View.VISIBLE);
-                        }
-                    });
+                Runnable runnable = () -> {
+                    submittedText = query;
+                    hadithModels = new ArrayList<>();
+                    setupHadithModels();
+                    HadithAdapter adapter = new HadithAdapter(SearchActivity.this, hadithModels, SearchActivity.this);
+                handler.post(() -> {
+                    recyclerView.setAdapter(adapter);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
+                    circularProgressIndicator.setVisibility(View.GONE);
+                    cancelText.setVisibility(View.VISIBLE);
+                    if(hadithModels.size()==0) {
+                        Snackbar.make(recyclerView,"No results found", Toast.LENGTH_SHORT).show();
                     }
+                });
                 };
                 Thread thread = new Thread(runnable);
                 thread.start();
@@ -140,7 +138,7 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
                 //read the arabic hadith json and the translated json according to the language
                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
                 String language = sharedPreferences.getString("language", "eng");
-                String hadithBookArabic = IOUtils.toString(getAssets().open("ara-" + displayName.get(k) + ".json"));
+                String hadithBookArabic = IOUtils.toString(getAssets().open("ara-" + displayName.get(k).substring(0,displayName.get(k).length()-4) + "1.min.json"));
                 String hadithBookEnglish = IOUtils.toString(getAssets().open(language + "-" + displayName.get(k) + ".json"));
 
                 //convert the arabic Ahadith to an JsonArray
@@ -154,7 +152,7 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
                 String fullBookName = hadithBookEnglishObject.getJSONObject("metadata").getString("name");
 
 
-                for (int i = 0; i < hadithsEnglish.length(); i++) {
+                for (int i = 0; i < hadithsArabic.length(); i++) {
                     //Get one specific arabic Hadith
                     JSONObject specificHadithArabic = hadithsArabic.getJSONObject(i);
                     //Get one specific translated Hadith
@@ -174,8 +172,8 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
 
                     String hadithArabicText = specificHadithArabic.getString("text"); //specific arabic hadith text
                     String hadithEnglishText = specificHadithEnglish.getString("text"); //specific translated hadith text
-
-                    if (!hadithEnglishText.isEmpty() && (hadithEnglishText.contains(submittedText) && isSearchText || currentHadithNumber.contains(submittedText) && isSearchNumber)) {
+                    boolean containsArabicOrEnglish =hadithEnglishText.contains(submittedText)||hadithArabicText.contains(submittedText);
+                    if (!hadithEnglishText.isEmpty() && (isSearchTranslatedText||isSearchArabicText) && (containsArabicOrEnglish) || currentHadithNumber.contains(submittedText) && isSearchNumber) {
                         //add grades from specific hadith
                         JSONArray grades = specificHadithEnglish.getJSONArray("grades");
                         ArrayList<HadithGradesModel> hadithGradesModels = new ArrayList<>();
@@ -233,7 +231,8 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
         this.getTheme().resolveAttribute(com.google.android.material.R.attr.colorSurface, typedValueSurface, true);
         int surfaceColor = typedValueSurface.data;
 
-        MaterialButton buttonText = dialog.findViewById(R.id.buttonText);
+        MaterialButton buttonArabicText = dialog.findViewById(R.id.buttonArabicText);
+        MaterialButton buttonTranslatedText = dialog.findViewById(R.id.buttonTranslatedText);
         MaterialButton buttonNumber = dialog.findViewById(R.id.buttonNumber);
 
         MaterialButton buttonBukhari = dialog.findViewById(R.id.buttonBukhari);
@@ -247,9 +246,10 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
         MaterialButton buttonSahih = dialog.findViewById(R.id.buttonSahih);
         MaterialButton buttonDaif = dialog.findViewById(R.id.buttonDaif);
 
-
-        buttonText.setTextColor(isSearchText ? getResources().getColor(R.color.white) : onBackgroundColor);
-        buttonText.setBackgroundColor(isSearchText ? primaryColor : surfaceColor);
+        buttonArabicText.setTextColor(isSearchArabicText ? getResources().getColor(R.color.white) : onBackgroundColor);
+        buttonArabicText.setBackgroundColor(isSearchArabicText ? primaryColor : surfaceColor);
+        buttonTranslatedText.setTextColor(isSearchTranslatedText ? getResources().getColor(R.color.white) : onBackgroundColor);
+        buttonTranslatedText.setBackgroundColor(isSearchTranslatedText ? primaryColor : surfaceColor);
         buttonNumber.setTextColor(isSearchNumber ? getResources().getColor(R.color.white) : onBackgroundColor);
         buttonNumber.setBackgroundColor(isSearchNumber ? primaryColor : surfaceColor);
 
@@ -274,10 +274,16 @@ public class SearchActivity extends AppCompatActivity implements HadithInterface
         buttonDaif.setBackgroundColor(isSearchDaif ? primaryColor : surfaceColor);
 
 
-        buttonText.setOnClickListener(view -> {
-            buttonText.setTextColor(isSearchText ? onBackgroundColor : getResources().getColor(R.color.white));
-            buttonText.setBackgroundColor(isSearchText ? surfaceColor : primaryColor);
-            isSearchText = !isSearchText;
+        buttonArabicText.setOnClickListener(view -> {
+            buttonArabicText.setTextColor(isSearchArabicText ? onBackgroundColor : getResources().getColor(R.color.white));
+            buttonArabicText.setBackgroundColor(isSearchArabicText ? surfaceColor : primaryColor);
+            isSearchArabicText = !isSearchArabicText;
+        });
+
+        buttonTranslatedText.setOnClickListener(view -> {
+            buttonTranslatedText.setTextColor(isSearchTranslatedText ? onBackgroundColor : getResources().getColor(R.color.white));
+            buttonTranslatedText.setBackgroundColor(isSearchTranslatedText ? surfaceColor : primaryColor);
+            isSearchTranslatedText = !isSearchTranslatedText;
         });
 
         buttonNumber.setOnClickListener(view -> {

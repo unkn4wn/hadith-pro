@@ -57,10 +57,21 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonText"
+                android:id="@+id/buttonArabicText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/search_book_text" />
+                android:text="@string/search_book_arabictext" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonTranslatedText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/search_book_translatedtext" />
         </LinearLayout>
 
         <LinearLayout
