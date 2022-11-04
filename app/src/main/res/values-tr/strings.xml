@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Hadith Pro</string>
+    <string name="title_book">Kitaplar</string>
+    <string name="title_bookmark">Yer imi</string>
+    <string name="title_random">Rastgele Hadis</string>
+    <string name="title_rate">Uygulamamizi değerlendi̇ri̇n</string>
+    <string name="title_reference">Referans</string>
+    <string name="title_moreapps">Diğer uygulamalar</string>
+    <string name="title_contribute">Nasıl katkıda bulunabilirsiniz</string>
+    <string name="title_source">Kaynak kodu</string>
+    <string name="title_settings">Ayarlar</string>
+
+    <string name="bukhari_book">Sahih Buhari</string>
+    <string name="muslim_book">Sahih Müslim</string>
+    <string name="nasai_book">Sünen en-Nesa\'i</string>
+    <string name="abudawud_book">Sünen Ebu Davud</string>
+    <string name="tirmidhi_book">Sünen-i Tirmizi</string>
+    <string name="ibnmajah_book">Sünen-i İbn Mace</string>
+    <string name="malik_book">Muvatta Malik</string>
+
+
+    <string name="by_author">Müellif:</string>
+    <string name="bukhari_author">İmam Buhari</string>
+    <string name="muslim_author">İmam Müslim</string>
+    <string name="nasai_author">İmam en-Nesa\'i</string>
+    <string name="abudawud_author">İmam Ebu Davud</string>
+    <string name="tirmidhi_author">İmam Tirmizi</string>
+    <string name="ibnmajah_author">İmam İbn Mace</string>
+    <string name="malik_author">İmam Malik</string>
+
+
+
+
+    <string name="search_hint">Bölüm ara</string>
+
+
+
+    <string name="chapterText">Bölüm</string>
+    <string name="reference">Referans</string>
+    <string name="reference_book">Kitap içi referans</string>
+
+
+
+    <string name="bottomsheet_copy_header">Kopyalama seçenekleri</string>
+    <string name="bottomsheet_copy_hadith_arabic">Arapça Hadis</string>
+    <string name="bottomsheet_copy_hadith_translated">Hadis tercümesi</string>
+    <string name="bottomsheet_copy_hadith_grades">Hadis Dereceleri</string>
+    <string name="bottomsheet_copy_hadith_reference">Referans</string>
+    <string name="bottomsheet_copy_button">Kopyala</string>
+
+
+    <string name="message_copy_success">Başarıyla kopyalandı</string>
+    <string name="message_copy_error">Hiçbir şey kopyalanmadı</string>
+
+
+    <string name="copyright">Hadith Pro\'dan kopyalandı (Uygulamamızı https://play.google.com/store/apps/details?id=com.islamicproapps.hadithpro adresinden indirin)</string>
+
+
+
+    <string name="message_bookmark_add">Başarıyla eklendi!</string>
+    <string name="message_bookmark_remove">Başarıyla Kaldırıldı!</string>
+    <string name="message_bookmark_add_error">Eklenemedi</string>
+    <string name="message_bookmark_remove_error">Kaldırılamadı</string>
+
+
+
+    <string name="random_cardview_hadith">Bana bir hadis göster</string>
+    <string name="random_cardview_anotherhadith">Bana başka bir Hadis göster</string>
+
+
+
+
+    <string name="search_cancel_button">İptal</string>
+    <string name="search_filter_title">Sonuçları filtrele</string>
+
+
+    <string name="search_only_title">Yalnızca</string>
+    <string name="search_in_title">Yalnızca</string>
+    <string name="search_grade_title">Derece</string>
+    <string name="search_book_translatedtext">Tercüme edilmiş Hadis</string>
+    <string name="search_book_arabictext">Arapça Hadis</string>
+    <string name="search_book_number">Hadis Numarası</string>
+    <string name="search_grade_sahih">Sahih</string>
+    <string name="search_grade_daif">Zayıf</string>
+
+
+
+    <string name="language_header">Dil</string>
+    <string name="appearance_header">Dış görünüş</string>
+    <string name="sync_header">senkronizasyon</string>
+
+
+    <string name="language_title">Hadis dili</string>
+    <string name="language_arabic">Arapça</string>
+    <string name="language_bengali">Bengalce</string>
+    <string name="language_english">İngilizce</string>
+    <string name="language_french">Fransızca</string>
+    <string name="language_indonesian">Endonezyaca</string>
+    <string name="language_tamil">Tamilce</string>
+    <string name="language_turkish">Türkçe</string>
+    <string name="language_urdu">Urduca</string>
+
+
+    <string name="display_arabic">Arapça Metni Göster</string>
+    <string name="display_translation">Tercüme edilmiş Metni Göster</string>
+    <string name="textsize_arabic">Arapça Metin Boyutu</string>
+    <string name="textsize_translation">Tercüme edilmiş Metin Boyutu</string>
+
+
+    <string name="contact_us">Herhangi bir hata bulursanız, lütfen bize mesaj gönderin</string>
+    <string name="menu_others">Diğerleri</string>
+    <string name="menu_menu">Menü</string>
+
+</resources>

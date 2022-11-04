@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Menu">
+    <item android:title="@string/menu_menu">
         <menu>
 
 
             <item
                 android:id="@+id/book"
                 android:icon="@drawable/navi_search"
-                android:title="Books" />
+                android:title="@string/title_book" />
             <item
                 android:id="@+id/bookmark"
                 android:icon="@drawable/navi_bookmark"
-                android:title="Bookmark" />
+                android:title="@string/title_bookmark" />
             <item
                 android:id="@+id/random"
                 android:icon="@drawable/navi_random"
-                android:title="Random Hadith" />
+                android:title="@string/title_random" />
         </menu>
     </item>
 
-    <item android:title="Others">
+    <item android:title="@string/menu_others">
         <menu>
             <item
                 android:id="@+id/rate"
                 android:icon="@drawable/navi_rate2"
-                android:title="Rate our app (not available)" />
+                android:title="@string/title_rate" />
             <item
                 android:id="@+id/reference"
                 android:icon="@drawable/navi_reference3"
-                android:title="Reference" />
+                android:title="@string/title_reference" />
             <item
                 android:id="@+id/moreapps"
                 android:icon="@drawable/navi_moreapps"
-                android:title="More apps" />
+                android:title="@string/title_moreapps" />
             <item
                 android:id="@+id/contribute"
                 android:icon="@drawable/navi_info2"
-                android:title="How to contribute" />
+                android:title="@string/title_contribute" />
             <item
                 android:id="@+id/sourcecode"
                 android:icon="@drawable/navi_source"
-                android:title="Source code" />
+                android:title="@string/title_source" />
         </menu>
     </item>
 </menu>

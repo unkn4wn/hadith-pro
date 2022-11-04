@@ -1,10 +1,21 @@
 <resources>
     <string name="app_name">Hadith Pro</string>
-
-
-    <!-- Book Fragment -->
     <!-- Title -->
     <string name="title_book">Books</string>
+    <string name="title_bookmark">Bookmark</string>
+    <string name="title_random">Random Hadith</string>
+    <string name="title_rate">Rate our app</string>
+    <string name="title_reference">Reference</string>
+    <string name="title_moreapps">More apps</string>
+    <string name="title_contribute">How to contribute</string>
+    <string name="title_source">Source code</string>
+    <string name="title_settings">Settings</string>
+
+    <!-- Menu -->
+    <string name="menu_menu">Menu</string>
+    <string name="menu_others">Others</string>
+
+    <!-- Book Fragment -->
     <!-- Books -->
     <string name="bukhari_book">Sahih Bukhari</string>
     <string name="muslim_book">Sahih Muslim</string>
@@ -52,8 +63,6 @@
     <string name="copyright">Copied from Hadith Pro (Download our app from https://github.com/unkn4wn/hadith-pro/releases/tag/Latest)</string>
 
     <!-- Bookmark -->
-    <!-- Title -->
-    <string name="title_bookmark">Bookmark</string>
     <!-- Bookmark message -->
     <string name="message_bookmark_add">Added Successfully!</string>
     <string name="message_bookmark_remove">Removed Successfully!</string>
@@ -61,8 +70,6 @@
     <string name="message_bookmark_remove_error">Failed to Remove</string>
 
     <!-- Random Hadith -->
-    <!-- Title -->
-    <string name="title_random">Random Hadith</string>
     <!-- RefreshCardview -->
     <string name="random_cardview_hadith">Show me an Hadith</string>
     <string name="random_cardview_anotherhadith">Show me another Hadith</string>
@@ -84,8 +91,6 @@
     <string name="search_grade_daif">Daif</string>
 
     <!-- Preferences -->
-    <!-- Title -->
-    <string name="title_settings">Settings</string>
     <!-- Preference Titles -->
     <string name="language_header">Language</string>
     <string name="appearance_header">Appearance</string>
@@ -110,13 +115,4 @@
 
     <!-- Contact us Preference -->
     <string name="contact_us">If you found any error, please email us</string>
-
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
