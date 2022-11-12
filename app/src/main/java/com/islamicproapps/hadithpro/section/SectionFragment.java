@@ -9,6 +9,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.widget.TextViewCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -104,7 +105,7 @@ public class SectionFragment extends Fragment implements SectionInterface {
                 sectionname[i] = section.getString(String.valueOf(i));
 
                 if (!sectionname[i].isEmpty()) {
-                    sectionModels.add(new SectionModel(i,sectionname[i]));
+                    sectionModels.add(new SectionModel(i, sectionname[i]));
                 }
             }
         } catch (Exception e) {
