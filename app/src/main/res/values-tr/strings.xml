@@ -111,5 +111,14 @@
     <string name="contact_us">Herhangi bir hata bulursanız, lütfen bize mesaj gönderin</string>
     <string name="menu_others">Diğerleri</string>
     <string name="menu_menu">Menü</string>
+    <string name="intro_books">Hadis Kitapları</string>
+    <string name="intro_grades">Hadis Dereceleri</string>
+    <string name="intro_translation">Hadis Tercümesi</string>
+    <string name="intro_issues">Bilinen Sorunlar</string>
+    <string name="intro_skip">Atla</string>
+    <string name="intro_next">İleri</string>
+    <string name="intro_getstarted">Başla</string>
+    <string name="intro_issues2">Bazı hadisler İngilizce\'de eksiktir</string>
+    <string name="intro_issues1">Zubair Ali Zai Derecelerinde bazı hatalar var</string>
 
 </resources>

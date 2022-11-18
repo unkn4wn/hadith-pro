@@ -1,5 +1,16 @@
 <resources>
     <string name="app_name">Hadith Pro</string>
+    <!-- Intro -->
+    <string name="intro_books">Hadith Books</string>
+    <string name="intro_grades">Hadith Grades</string>
+    <string name="intro_issues">Known Issues</string>
+    <string name="intro_translation">Hadith Translation</string>
+    <string name="intro_skip">Skip</string>
+    <string name="intro_next">Next</string>
+    <string name="intro_getstarted">Get Started</string>
+    <string name="intro_issues1">Some mistakes in Zubair Ali Zai Grades</string>
+    <string name="intro_issues2">Some Ahadith are missing in English</string>
+
     <!-- Title -->
     <string name="title_book">Books</string>
     <string name="title_bookmark">Bookmark</string>

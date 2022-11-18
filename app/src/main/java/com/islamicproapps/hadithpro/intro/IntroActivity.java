@@ -68,7 +68,8 @@ public class IntroActivity extends AppCompatActivity {
         layouts = new int[]{
                 R.layout.intro_one,
                 R.layout.intro_two,
-                R.layout.intro_three
+                R.layout.intro_three,
+                R.layout.intro_four
         };
 
         tvNext.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +90,7 @@ public class IntroActivity extends AppCompatActivity {
                 int current = getItem(+1);
                 if (current < layouts.length) {
                     // move to next screen
-                    viewPager.setCurrentItem(current + 2);
+                    viewPager.setCurrentItem(current + 3);
                 } else {
                     launchHomeScreen();
                 }
@@ -124,7 +125,7 @@ public class IntroActivity extends AppCompatActivity {
             addBottomDots(position);
             if (position == layouts.length - 1) {
                 tvSkip.setVisibility(View.GONE);
-                tvNext.setText("Get Started");
+                tvNext.setText(getString(R.string.intro_getstarted));
                 RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) tvNext.getLayoutParams();
                 params.removeRule(RelativeLayout.ALIGN_PARENT_END);
                 params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
@@ -159,7 +160,7 @@ public class IntroActivity extends AppCompatActivity {
                 }
             } else {
                 tvSkip.setVisibility(View.VISIBLE);
-                tvNext.setText("Next");
+                tvNext.setText(getString(R.string.intro_next));
                 RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) tvNext.getLayoutParams();
                 params.removeRule(RelativeLayout.CENTER_IN_PARENT);
                 params.addRule(RelativeLayout.ALIGN_PARENT_END, RelativeLayout.TRUE);
