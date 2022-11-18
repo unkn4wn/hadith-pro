@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.islamicproapps.hadithpro.R;
 import com.islamicproapps.hadithpro.hadith.HadithFragment;
+import com.islamicproapps.hadithpro.helper.SharedPreferencesHelper;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
@@ -90,8 +91,7 @@ public class SectionFragment extends Fragment implements SectionInterface {
 
     private void setupSectionModels() {
         try {
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
-            String language = sharedPreferences.getString("language", "eng");
+            String language = SharedPreferencesHelper.getValue(requireContext(),"language","eng");
             String everything = IOUtils.toString(requireActivity().getAssets().open(language + "-" + bookId + ".json"));
             JSONObject hadithBookObject = new JSONObject(everything);
             JSONObject metadata = hadithBookObject.getJSONObject("metadata");

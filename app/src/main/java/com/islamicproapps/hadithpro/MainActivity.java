@@ -13,12 +13,15 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.islamicproapps.hadithpro.book.BookFragment;
 import com.islamicproapps.hadithpro.bookmark.BookmarkFragment;
+import com.islamicproapps.hadithpro.helper.SharedPreferencesHelper;
+import com.islamicproapps.hadithpro.intro.IntroActivity;
 import com.islamicproapps.hadithpro.random.RandomFragment;
 import com.islamicproapps.hadithpro.search.SearchActivity;
 import com.islamicproapps.hadithpro.settings.SettingsActivity;
@@ -32,7 +35,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        boolean firstStart = SharedPreferencesHelper.getValue(this,"firstStart",true);
+        if (firstStart) {
+            Log.d("strt", String.valueOf(firstStart));
+            startActivity(new Intent(MainActivity.this,IntroActivity.class));
+        } else {
+            Log.d("strt", String.valueOf(firstStart));
+        }
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment, new BookFragment()); // give your fragment container id in first parameter
         transaction.addToBackStack(null);  // if written, this transaction will be added to backstack

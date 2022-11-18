@@ -17,4 +17,27 @@
 
     <color name="weak_text">#80000000</color>
     <color name="red">#FF1611</color>
+
+    // dots inactive colors
+    <color name="dark_one">#dcdcdc</color>
+    <color name="dark_two">#dcdcdc</color>
+    <color name="dark_three">#dcdcdc</color>
+
+    // dots active colors
+    <color name="orange_one">#50A89B</color>
+    <color name="orange_two">#50A89B</color>
+    <color name="orange_three">#50A89B</color>
+
+
+    <array name="active">
+        <item>@color/orange_one</item>
+        <item>@color/orange_two</item>
+        <item>@color/orange_three</item>
+    </array>
+
+    <array name="inactive">
+        <item>@color/dark_one</item>
+        <item>@color/dark_two</item>
+        <item>@color/dark_three</item>
+    </array>
 </resources>
