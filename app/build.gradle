@@ -10,7 +10,7 @@ android {
         applicationId "com.islamicproapps.hadithpro"
         minSdk 21
         targetSdk 33
-        versionCode 3
+        versionCode 4
         versionName "0.6"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -18,7 +18,8 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            shrinkResources true
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
