@@ -72,28 +72,22 @@ public class IntroActivity extends AppCompatActivity {
                 R.layout.intro_four
         };
 
-        tvNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int current = getItem(+1);
-                if (current < layouts.length) {
-                    viewPager.setCurrentItem(current);
-                } else {
-                    launchHomeScreen();
-                }
+        tvNext.setOnClickListener(v -> {
+            int current = getItem(+1);
+            if (current < layouts.length) {
+                viewPager.setCurrentItem(current);
+            } else {
+                launchHomeScreen();
             }
         });
 
-        tvSkip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int current = getItem(+1);
-                if (current < layouts.length) {
-                    // move to next screen
-                    viewPager.setCurrentItem(current + 3);
-                } else {
-                    launchHomeScreen();
-                }
+        tvSkip.setOnClickListener(v -> {
+            int current = getItem(+1);
+            if (current < layouts.length) {
+                // move to next screen
+                viewPager.setCurrentItem(current + 3);
+            } else {
+                launchHomeScreen();
             }
         });
 
@@ -106,7 +100,6 @@ public class IntroActivity extends AppCompatActivity {
     }
 
     private void changeStatusBarColor() {
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -146,15 +139,12 @@ public class IntroActivity extends AppCompatActivity {
 
                 for (int i = 0;i<materialSwitches.length;i++) {
                     int currentPosition = i;
-                    materialSwitches[i].setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                        @Override
-                        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                            if (b) {
-                                disableAllSwitch(materialSwitches);
-                                compoundButton.setChecked(true);
-                                SharedPreferencesHelper.storeValue(IntroActivity.this,"language",languages[currentPosition]);
-                                SharedPreferencesHelper.storeValue(IntroActivity.this,"introLanguage",currentPosition);
-                            }
+                    materialSwitches[i].setOnCheckedChangeListener((compoundButton, b) -> {
+                        if (b) {
+                            disableAllSwitch(materialSwitches);
+                            compoundButton.setChecked(true);
+                            SharedPreferencesHelper.storeValue(IntroActivity.this,"language",languages[currentPosition]);
+                            SharedPreferencesHelper.storeValue(IntroActivity.this,"introLanguage",currentPosition);
                         }
                     });
                 }
@@ -235,21 +225,9 @@ public class IntroActivity extends AppCompatActivity {
         finish();
     }
 
-    private void enableSwitch(MaterialSwitch materialSwitch) {
-        materialSwitch.setEnabled(true);
-    }
-
     private void disableAllSwitch(MaterialSwitch[] materialSwitches) {
         for (MaterialSwitch materialSwitch : materialSwitches) {
             materialSwitch.setChecked(false);
-        }
-    }
-
-    private void checkSwitches(MaterialSwitch[] materialSwitches) {
-        for (MaterialSwitch materialSwitch : materialSwitches) {
-            if (materialSwitch.isChecked()) {
-                break;
-            }
         }
     }
 
