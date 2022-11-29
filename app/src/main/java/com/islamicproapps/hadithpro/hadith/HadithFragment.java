@@ -146,8 +146,10 @@ public class HadithFragment extends Fragment implements HadithInterface {
                         JSONArray grades = specificHadithEnglish.getJSONArray("grades");
                         ArrayList<HadithGradesModel> hadithGradesModels = new ArrayList<>();
                         for (int j = 0; j < grades.length(); j++) {
+                            if (!(grades.getJSONObject(j).getString("name")).contains("Zubair")) {
                             hadithGradesModels.add(new HadithGradesModel(grades.getJSONObject(j).getString("name"), grades.getJSONObject(j).getString("grade")));
-                        }
+                            }
+                            }
 
                         hadithModels.add(new HadithModel(specificHadithBookReference.getString("hadith"), hadithArabicText, hadithEnglishText, referenceText.toString(), referenceBookText.toString(),language, hadithGradesModels));
                     }
