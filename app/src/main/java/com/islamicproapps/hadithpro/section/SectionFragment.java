@@ -109,16 +109,19 @@ public class SectionFragment extends Fragment implements SectionInterface {
                 }
             }
         } catch (Exception e) {
+            sectionModels.add(new SectionModel(404,"No Translation Available"));
             e.printStackTrace();
         }
     }
 
     @Override
     public void onItemClick(int position) {
-        final FragmentTransaction ft = getParentFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment, HadithFragment.newInstance(bookId, sectionModels.get(position).getSectionNumber(), sectionModels.get(position).getSectionName()), "NewFragmentTag");
-        ft.addToBackStack(null);
-        ft.commit();
+        if(sectionModels.get(position).getSectionNumber()!= 404) {
+            final FragmentTransaction ft = getParentFragmentManager().beginTransaction();
+            ft.replace(R.id.fragment, HadithFragment.newInstance(bookId, sectionModels.get(position).getSectionNumber(), sectionModels.get(position).getSectionName()), "NewFragmentTag");
+            ft.addToBackStack(null);
+            ft.commit();
+        }
     }
 
     @Override

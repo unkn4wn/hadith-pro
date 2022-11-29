@@ -110,7 +110,7 @@ public class HadithFragment extends Fragment implements HadithInterface {
             sectionText.setText(getResources().getString(R.string.chapterText)+" " + sectionId);
             sectionName.setText(sectionIdName);
 
-            for (int i = 0; i < hadithsArabic.length(); i++) {
+            for (int i = 0; i < hadithsEnglish.length(); i++) {
                 //Get one specific arabic Hadith
                 JSONObject specificHadithArabic = hadithsArabic.getJSONObject(i);
                 //Get one specific translated Hadith
@@ -128,11 +128,18 @@ public class HadithFragment extends Fragment implements HadithInterface {
                 referenceText.append(fullBookName).append(" ").append(currentHadithNumber);
                 referenceBookText.append("Book ").append(currentChapterNumber).append(", ").append("Hadith ").append(currentHadithNumberInChapter);
 
+
+
+                if(!(specificHadithArabic.getString("hadithnumber").equals(specificHadithArabic.getString("hadithnumber")))) {
+                    System.out.println("FAAAALASSEEE");
+                    System.out.println(specificHadithEnglish.getString("hadithnumber") + " "+ specificHadithArabic.getString("hadithnumber")); //Current absolute Number of hadith);
+                }
+
                 if (currentChapterNumber == sectionId) {
                     String hadithArabicText = specificHadithArabic.getString("text"); //specific arabic hadith text
                     String hadithEnglishText = specificHadithEnglish.getString("text"); //specific translated hadith text
 
-                    // only add ahadith which are translated. If there is no translation, dont show the hadith
+                    // only add ahadith which are translated. If there is no translation, don't show the hadith
                     if (!hadithEnglishText.isEmpty()) {
 
                         //add grades from specific hadith
