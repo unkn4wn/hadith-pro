@@ -109,7 +109,7 @@ public class SectionFragment extends Fragment implements SectionInterface {
                 }
             }
         } catch (Exception e) {
-            sectionModels.add(new SectionModel(404,"No Translation Available"));
+            sectionModels.add(new SectionModel(404,getString(R.string.no_translation)));
             e.printStackTrace();
         }
     }
