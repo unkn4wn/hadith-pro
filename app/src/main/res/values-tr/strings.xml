@@ -120,5 +120,6 @@
     <string name="intro_getstarted">Başla</string>
     <string name="intro_issues2">Bazı hadisler İngilizce\'de eksiktir</string>
     <string name="intro_issues1">Zubair Ali Zai Derecelerinde bazı hatalar var</string>
+    <string name="no_translation">Tercüme Mevcut Değil</string>
 
 </resources>

@@ -126,4 +126,6 @@
 
     <!-- Contact us Preference -->
     <string name="contact_us">If you found any error, please email us</string>
+
+    <string name="no_translation">No Translation Available</string>
 </resources>
